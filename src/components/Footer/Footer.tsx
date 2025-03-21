@@ -8,10 +8,10 @@ const Footer: React.FC = () => {
       <div className="footer-content">
         <div className="footer-links">
           <ul>
-            <li><a href="/a-propos">À propos</a></li>
+            <li><a href="/about">À propos</a></li>
             <li><a href="/contact">Contact</a></li>
-            <li><a href="/conditions">Conditions d'utilisation</a></li>
-            <li><a href="/confidentialite">Politique de confidentialité</a></li>
+            <li><a href="/contrat">Conditions d'utilisation</a></li>
+            <li><a href="/confidentiality">Politique de confidentialité</a></li>
           </ul>
         </div>
         

@@ -50,8 +50,8 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className="nav-buttons">
-        <Button text="S'inscrire" onClick={() => navigate("/inscription")} />
-        <Button text="Se connecter" onClick={() => navigate("/connexion")} />
+        <Button text="S'inscrire" onClick={() => navigate("/register")} />
+        <Button text="Se connecter" onClick={() => navigate("/login")} />
       </div>
     </nav>
   );
