@@ -1,0 +1,28 @@
+/* Styles généraux de la page */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+/* Wrapper principal avec flexbox pour s'assurer que le footer soit toujours en bas */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Utilise 100% de la hauteur de la fenêtre */
+}
+
+/* Contenu principal qui prendra tout l'espace disponible */
+.main-content {
+  flex-grow: 1;
+  /* Ajoute d'autres styles pour ton contenu si nécessaire */
+}
+
+/* Footer (reste en bas) */
+.footer {
+  background-color: #2C3E50;
+  color: white;
+  padding: 3px ;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
+}

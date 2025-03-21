@@ -1,0 +1,142 @@
+/* Styles de la navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 1px;
+    background-color: #3C4A5A;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .navbar-logo {
+    height: 50px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  /* Conteneur central (Select + Recherche + Catégories) */
+  .nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .navbar select {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Barre de recherche */
+  .navbar input {
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 10px 15px;
+    border: 2px solid #16a085;
+    border-radius: 20px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar input:focus {
+    border-color: #133d35;
+    box-shadow: 0 0 10px rgba(20, 76, 65, 0.5);
+  }
+  
+  .navbar-categories {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #34495e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+  
+  /* Menu burger pour mobile */
+  .menu-burger {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .burger-line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+  }
+  
+  /* Styles spécifiques pour les écrans petits */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      padding: 8px;
+    }
+  
+    .nav-center {
+      flex-direction: column;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .navbar input {
+      width: 100%;
+      max-width: none;
+    }
+  
+    .navbar-categories {
+      margin-top: 10px;
+      width: 100%;
+    }
+  
+    .nav-buttons {
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+  
+    .menu-burger {
+      display: block;
+    }
+  
+    .nav-center.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .menu-burger {
+      display: block;
+    }
+  
+    .nav-center.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  }
+  

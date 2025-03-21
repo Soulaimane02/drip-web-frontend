@@ -1,10 +1,21 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Main from "./pages/Main/Main";
+import Login from "./pages/Login/Login";
+import Inscription from "./pages/Inscription/Inscription";
+
+
+
+
 function App() {
   return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main/>} />
+        <Route path="/connexion" element={<Login/>}/>
+        <Route path="/inscription" element={<Inscription/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
