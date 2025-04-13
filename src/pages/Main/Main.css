@@ -1,0 +1,212 @@
+/* Styles généraux de la page */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300;1,400;1,600&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+/* Wrapper principal avec flexbox pour s'assurer que le footer soit toujours en bas */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Utilise 100% de la hauteur de la fenêtre */
+}
+
+/* Contenu principal qui prendra tout l'espace disponible */
+.main-content {
+  margin-top: 5rem; 
+
+  flex-grow: 1;
+  /* Ajoute d'autres styles pour ton contenu si nécessaire */
+}
+
+.hero-container {
+  position: relative; /* Permet de positionner le texte par-dessus l'image */
+  width: 100%;
+}
+
+
+.hero-banner {
+  width: 100%;
+  height: auto; /* Conserve le ratio de l’image */
+  max-height: 60vh; 
+  display: block;
+  margin: 0 auto;
+}
+
+.hero-title {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic; 
+  top: 35%; /* Centre verticalement */
+  left: 45%; /* Centre horizontalement */
+  transform: translate(-36%, -80%); /* Centre parfaitement */
+  color: #16a085;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Effet d'ombre pour lisibilité */
+}
+
+
+.hero-button {
+  position: absolute;
+  top: 58%; /* Position verticale fixée sous le texte */
+  left: 50%; /* Position horizontale centrée */
+  margin-left: -100px; /* Décalage de moitié de la largeur du bouton pour qu'il soit parfaitement centré */
+  margin-top: -20px;
+  background-color: #16a085; /* Couleur du bouton */
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease; /* Transition douce au survol */
+}
+
+.hero-button:hover {
+  background-color: #1abc9c; /* Change la couleur du bouton au survol */
+}
+
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Grille flexible avec une taille minimale de 250px pour chaque produit */
+  gap: 20px;
+  margin: 2rem 0;
+  padding: 0 10px;
+}
+
+/* Style des cartes de produits */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #dfdfdf;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Effet de zoom au survol */
+}
+
+/* Image du produit */
+.product-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+/* Informations sur le produit */
+.product-info {
+  padding: 15px;
+  text-align: center;
+}
+.product-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.product-size,
+.product-marque,
+.product-price {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.product-favorite {
+  font-size: 1.1rem;
+  color: #e74c3c;
+  margin-top: 4px;
+}
+
+
+/* Footer (reste en bas) */
+.footer {
+  background-color: #2C3E50;
+  color: white;
+  padding: 3px ;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Ajuste la taille minimale des colonnes */
+    gap: 15px;
+  }
+
+  .product-card {
+    max-width: 90%; /* Assure que les cartes ne dépassent pas de l'écran sur les tablettes */
+  }
+
+  .product-image {
+    height: 220px; /* Réduit la taille des images sur les écrans plus petits */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Pour les écrans mobiles, utilise des cartes encore plus petites */
+    gap: 10px;
+  }
+
+  .product-card {
+    max-width: 100%; /* Les cartes remplissent toute la largeur sur les mobiles */
+  }
+
+  .product-image {
+    height: 180px; /* Plus petite image sur les petits écrans */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-top: 16rem; /* Encore moins d’espace pour les petits écrans */
+  }
+
+  .hero-title {
+    transform: translate(-40%, -115%); /* Centre parfaitement */
+    font-size: 1rem;
+  }
+
+  .hero-banner {
+    max-height: 30vh; /* Image encore plus petite sur mobile */
+  }
+
+  .footer {
+    font-size: 11px; /* Adapte la taille du texte du footer */
+  }
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Cartes encore plus petites sur les plus petits écrans */
+    gap: 8px;
+  }
+
+  .product-card {
+    max-width: 100%; /* Les cartes s'adaptent à la largeur de l'écran */
+  }
+
+  .product-image {
+    height: 150px; /* Image encore plus petite sur les très petits écrans */
+  }
+}
