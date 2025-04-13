@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import * as FaIcons from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -19,17 +19,17 @@ const Footer: React.FC = () => {
         <ul>
             <li>
             <a href="https://www.facebook.com/vinted/" target="_blank" rel="noopener noreferrer">
-                <FaIcons.FaFacebook size={24} color="white" />
+                <FaFacebook size={24} color="white" />
             </a>
             </li>
             <li>
             <a href="https://www.instagram.com/vinted/" target="_blank" rel="noopener noreferrer">
-                <FaIcons.FaInstagram size={24} color="white" />
+                <FaInstagram size={24} color="white" />
             </a>
             </li>
             <li>
             <a href="https://x.com/vinted" target="_blank" rel="noopener noreferrer">
-                <FaIcons.FaTwitter size={24} color="white" />
+                <FaTwitter size={24} color="white" />
             </a>
             </li>
         </ul>
