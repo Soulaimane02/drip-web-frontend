@@ -10,4 +10,5 @@ export interface Articles {
     categories?: string[];
     size?: string;
     color?: string;
+    
 }
