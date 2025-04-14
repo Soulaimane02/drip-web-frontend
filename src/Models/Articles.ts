@@ -1,14 +1,13 @@
 export interface Articles {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     price: number;
-    pictures: string[];
+    pictures: string[] | string;
     likes: number;
     views: number;
     condition: string;
-    categories?: string[];
+    categories?: string[] | string;
     size?: string;
     color?: string;
-    
 }
