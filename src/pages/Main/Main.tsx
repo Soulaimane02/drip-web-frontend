@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import CategoryMenu from "../../components/CategoryMenu/CategoryMenu";
 import HeroSection from "../../components/HeroSection/HeroSection";
@@ -8,55 +8,23 @@ import Footer from "../../components/Footer/Footer";
 import { ShoppingBag, Truck, Sun } from "lucide-react";
 import { Articles } from "../../Models/Articles";
 import "./Main.css";
+import { fetchArticles } from "../../services/ArticleService";
+import { Link } from "react-router-dom";
 
 const Main: React.FC = () => {
-    const popularProducts: Articles[] = [
-        {
-          id: "1",
-          name: "Black Jacket",
-          description: "A stylish black jacket perfect for mid-season wear.",
-          price: 45.0,
-          size: "M",
-          color: "Black",
-          pictures: [
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-          ],
-          likes: 120,
-          views: 900,
-          condition: "Used - Like New",
-          categories: ["Jackets", "Men", "Outerwear"]
-        },
-        {
-          id: "2",
-          name: "Vintage 501 Jeans",
-          description: "Classic Levi’s 501 vintage jeans. Straight cut and super comfy.",
-          price: 38.0,
-          size: "32/34",
-          color: "Blue",
-          pictures: [
-            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-          ],
-          likes: 87,
-          views: 760,
-          condition: "Used - Good",
-          categories: ["Jeans", "Vintage", "Unisex"]
-        },
-        {
-          id: "3",
-          name: "Denim Shorts",
-          description: "Light blue denim shorts, perfect for summer.",
-          price: 22.5,
-          size: "S",
-          color: "Light Blue",
-          pictures: [
-            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-          ],
-          likes: 45,
-          views: 340,
-          condition: "Used - Very Good",
-          categories: ["Shorts", "Women", "Summer"]
+    const [articles, setArticles] = useState<Articles[]>([]);
+
+    useEffect(()=>{
+
+        const loadArticles = async () =>{
+            const data = await fetchArticles();
+            if (typeof data !== "string") {
+                setArticles(data);
+            }
         }
-      ];
+
+        loadArticles();
+    }, [])
       
 
   return (
@@ -80,10 +48,13 @@ const Main: React.FC = () => {
           </div>
           
           <div className="products-grid">
-            {popularProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+            {articles.map(article => (
+                <Link key={article.id} to={`/article/${article.id}`}>
+                <ProductCard product={article} />
+                </Link>
             ))}
-          </div>
+           </div>
+
         </section>
         
         <section className="features-section">

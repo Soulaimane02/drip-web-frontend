@@ -105,6 +105,11 @@
   color: #6b7280;
 }
 
+a{
+  text-decoration: none;
+  color: #060606;
+}
+
 @media (min-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -120,104 +125,3 @@
     grid-template-columns: repeat(6, 1fr);
   }
 }
-
-
-
-
-/*
-
-
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import CategoryMenu from "../../components/CategoryMenu/CategoryMenu";
-import HeroSection from "../../components/HeroSection/HeroSection";
-import BrandSection from "../../components/BrandSection/BrandSection";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import Footer from "../../components/Footer/Footer";
-import { ShoppingBag, Truck, Sun } from "lucide-react";
-import { Articles } from "../../Models/Articles";
-import "./Main.css";
-import { fetchArticles } from "../../services/ArticleService";
-
-
-
-const Main: React.FC = () => {
-  const [articles, setArticles] = useState<Articles[]>([]); 
-
-  useEffect(() => {
-    const loadArticles = async () => {
-      const data = await fetchArticles();
-      if (typeof data !== "string") {
-        setArticles(data);
-      }
-    };
-
-    loadArticles();
-  }, []);
-
-  return (
-    <div className="home-container">
-      <Navbar />
-      <main className="main-content">
-        <CategoryMenu className="category-menu-spacing" />
-        <HeroSection />
-        <BrandSection />
-
-        <section className="products-section">
-          <div className="section-header">
-            <h2 className="section-title">Popular Items</h2>
-            <a href="#" className="view-more-link">
-              View More <span className="view-more-arrow">→</span>
-            </a>
-          </div>
-
-          <div className="products-grid">
-            {articles.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
-
-        <section className="features-section">
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon-container">
-                <div className="feature-icon-background">
-                  <ShoppingBag className="feature-icon" />
-                </div>
-                <h3 className="feature-title">Pre-loved Quality</h3>
-              </div>
-              <p className="feature-description">All items are carefully vetted for quality and authenticity before being listed. Shop with confidence.</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon-container">
-                <div className="feature-icon-background">
-                  <Truck className="feature-icon" />
-                </div>
-                <h3 className="feature-title">Secure Shipping</h3>
-              </div>
-              <p className="feature-description">Tracked shipping ensures your purchases arrive safely. Buyer protection on every order.</p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon-container">
-                <div className="feature-icon-background">
-                  <Sun className="feature-icon" />
-                </div>
-                <h3 className="feature-title">Sustainable Fashion</h3>
-              </div>
-              <p className="feature-description">Every purchase prevents waste and extends the lifecycle of quality clothing. Fashion with a conscience.</p>
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
-  );
-};
-
-export default Main;
-
-
-*/
