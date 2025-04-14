@@ -92,6 +92,7 @@
   width: 1.5rem;
   height: 1.5rem;
   background: rgb(255, 252, 252);
+  background-clip: text;
   -webkit-background-clip: text;
 }
 
