@@ -1,4 +1,3 @@
 export interface Categories {
-    vêtements: string[];
-    chaussures: string[];
-}
+    [key: string]: string[];
+  }

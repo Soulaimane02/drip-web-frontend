@@ -1,0 +1,96 @@
+.brand-section {
+    padding: 2rem 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .brand-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 1.5rem;
+  }
+  
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .brand-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    text-decoration: none;
+  }
+  
+  .brand-item:hover {
+    background-color: #ffffff;
+  }
+  
+  .brand-name {
+    font-weight: 500;
+    color: #4b5563;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  @media (min-width: 768px) {
+    .brand-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .brand-marquee {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .brand-track {
+    display: flex;
+    width: fit-content;
+    animation: scroll 25s linear infinite;
+    gap: 2rem;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .brand-item {
+    min-width: 100px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    transition: transform 0.3s ease;
+  }
+  
+  .brand-item:hover {
+    transform: scale(1.1) rotate(1deg);
+  }
+  
+  .brand-logo {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s ease;
+  }
+  
