@@ -18,11 +18,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
         <button className="favorite-button">
           <Heart size={16} />
+          <span style={{ color: "#f26b6b", fontSize: "0.675rem" }} className="product-price">
+            {product.likes}
+            </span>
         </button>
       </div>
       <div className="product-info">
         <div className="product-price-size">
-          <span className="product-price">{product.price.toFixed(2)} €</span>
+          <span className="product-price">{product.price} €</span>
           <span className="product-size">{product.size}</span>
         </div>
         <div className="product-name">{product.name}</div>
@@ -32,3 +35,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 };
 
 export default ProductCard;
+
+
+
