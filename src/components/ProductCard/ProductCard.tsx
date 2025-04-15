@@ -10,11 +10,11 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="product-card">
-      <div className="product-image-container">
+      <div className="product-image-container-product">
         <img 
           src={product.pictures[0]} 
           alt={product.name} 
-          className="product-image"
+          className="product-image-product"
         />
         <button className="favorite-button">
           <Heart size={16} />
