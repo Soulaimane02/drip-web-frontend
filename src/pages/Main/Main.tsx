@@ -12,6 +12,7 @@ import { fetchArticles } from "../../services/ArticleService";
 import { Link } from "react-router-dom";
 
 const Main: React.FC = () => {
+
     const [articles, setArticles] = useState<Articles[]>([]);
 
     useEffect(()=>{

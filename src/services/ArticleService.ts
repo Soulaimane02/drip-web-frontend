@@ -1,9 +1,11 @@
 import { Articles } from '../Models/Articles';
 
+const api = process.env.REACT_APP_SECRET_IP as string;
+
 
 export const fetchArticles = async (): Promise<Articles[] | string> =>  {
     try {
-        const data = await fetch("http://localhost:3000/articles/", {
+        const data = await fetch(`${api}/articles/`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -20,7 +22,7 @@ export const fetchArticles = async (): Promise<Articles[] | string> =>  {
 
 export const fetchArticle = async (id_article : string): Promise<Articles | string> => {
     try{
-        const data = await fetch(`http://localhost:3000/articles/${id_article}`, {
+        const data = await fetch(`${api}/articles/${id_article}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
