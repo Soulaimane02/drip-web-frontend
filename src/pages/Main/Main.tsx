@@ -10,10 +10,13 @@ import { Articles } from "../../Models/Articles";
 import "./Main.css";
 import { fetchArticles } from "../../services/ArticleService";
 import { Link } from "react-router-dom";
+import { Categories } from "../../Models/Categorie";
+import { fetchAllCategories, fetchByCategorie } from "../../services/CategorieService";
 
 const Main: React.FC = () => {
-
     const [articles, setArticles] = useState<Articles[]>([]);
+    const [categorieParent, setCategorieParent] = useState<Categories[]>([]);
+
 
     useEffect(()=>{
 
@@ -24,17 +27,46 @@ const Main: React.FC = () => {
             }
         }
 
+        const loadCategorieParent = async () =>{
+            const data = await fetchAllCategories();
+            if(typeof data !== "string"){
+                setCategorieParent(data)
+            }
+        }
+
         loadArticles();
-    }, [])
-      
+        loadCategorieParent();
+    }, []);
+
+// Regroupement des sous-catégories par catégorie parente (GPT)
+const parentCategories = categorieParent.filter((cat) => !cat.parent);
+const subCategoriesMap: { [key: string]: string[] } = {};
+
+categorieParent.forEach((cat) => {
+    if (cat.parent) {
+      if (!subCategoriesMap[cat.parent]) {
+        subCategoriesMap[cat.parent] = [];
+      }
+      subCategoriesMap[cat.parent].push(cat.name);
+    }
+  });
+
+    
+
 
   return (
     <div className="home-container">
       <Navbar />
       
       <main className="main-content">
-        <CategoryMenu className="category-menu-spacing" />
-        
+        {parentCategories.map((categorie) => (
+          <CategoryMenu
+            key={categorie.id}
+            categorie={categorie}
+            subCategories={subCategoriesMap[categorie.id] || []}
+            className="category-menu-spacing"
+          />
+        ))}
         <HeroSection />
         
         <BrandSection />

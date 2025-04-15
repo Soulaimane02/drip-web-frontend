@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import "./CategoryMenu.css";
+import { Categories } from "../../Models/Categorie";
 
 interface CategoryMenuProps {
+  categorie: Categories;
+  subCategories: string[]; 
   className?: string;
 }
 
-const CategoryMenu: React.FC<CategoryMenuProps> = ({ className = "" }) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+const CategoryMenu: React.FC<CategoryMenuProps> = ({categorie, subCategories, className = "",}) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null); 
 
-  const categories = [
-    { name: "Femmes", subcategories: ["Vêtements", "Chaussures", "Accessoires"] },
-    { name: "Hommes", subcategories: ["Vêtements", "Chaussures", "Montres"] },
-    { name: "Enfants", subcategories: ["Jouets", "Vêtements", "Scolaire"] },
-    { name: "Maison", subcategories: ["Décoration", "Cuisine", "Meubles"] },
-    { name: "Divertissement", subcategories: ["Livres", "Jeux", "Films"] },
-    { name: "Animaux", subcategories: ["Chiens", "Chats", "Accessoires"] },
-    { name: "Accessoires", subcategories: ["Sacs", "Bijoux", "Lunettes"] },
-    { name: "Beauté", subcategories: ["Maquillage", "Soins", "Parfums"] }
-  ];
+  const categories = [{ name: categorie.name, subCategories: subCategories }];
 
   const handleClick = (index: number) => {
-    // Toggle on mobile
     if (window.innerWidth < 768) {
       setActiveIndex(activeIndex === index ? null : index);
     }
@@ -36,13 +29,17 @@ const CategoryMenu: React.FC<CategoryMenuProps> = ({ className = "" }) => {
             className={`category-group ${activeIndex === index ? "active" : ""}`}
             onClick={() => handleClick(index)}
           >
-            <a href="#" className="category-item">
+            <a href={`/category/${category.name}`} className="category-item">
               {category.name}
               <ChevronRight className="category-icon" />
             </a>
             <div className="subcategory-list">
-              {category.subcategories.map((sub, idx) => (
-                <a key={idx} href="#" className="subcategory-item">
+              {category.subCategories.map((sub, idx) => (
+                <a
+                  key={idx}
+                  href={`/category/${category.name}/${sub}`}
+                  className="subcategory-item"
+                >
                   {sub}
                 </a>
               ))}
