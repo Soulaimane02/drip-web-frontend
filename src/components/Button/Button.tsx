@@ -1,18 +1,29 @@
 import React from "react";
 import "./Button.css";
+
 interface ButtonProps {
-  text: string;
+  text?: string;
   onClick: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  className?: string;
+  children?: React.ReactNode;
 }
-const Button: React.FC<ButtonProps> = ({ text, onClick, variant = 'primary' }) => {
+
+const Button: React.FC<ButtonProps> = ({
+  text,
+  onClick,
+  variant = 'primary',
+  className = '',
+  children,
+}) => {
   return (
     <button 
-      className={`custom-button ${variant}`} 
+      className={`custom-button ${variant} ${className}`} 
       onClick={onClick}
     >
-      {text}
+      {children ?? text}
     </button>
   );
 };
+
 export default Button;
