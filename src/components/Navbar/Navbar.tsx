@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import Button from "../Button/Button";
-import { Categories } from "../../Models/Categories";
 import { Search, Menu, ChevronDown, Plus } from "lucide-react";
 
-const categories: Categories = {
-  vêtements: ["T-shirts", "Jeans", "Vestes", "Robes", "Sweats"],
-  chaussures: ["Baskets", "Chaussures de ville", "Tongues", "Sandales"],
-};
+
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
