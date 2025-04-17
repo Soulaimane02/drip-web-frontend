@@ -3,6 +3,8 @@ import "./Inscription.css";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router";
 import { register } from "../../services/AuthService";
+import { toast } from "sonner";
+
 
 const Inscription: React.FC = () => {
   const navigate = useNavigate();
@@ -22,36 +24,43 @@ const Inscription: React.FC = () => {
     e.preventDefault();
 
     if (!emailRegex.test(email)) {
-      return;
-    }
-
-    if (!passwordRegex.test(password)) {
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      return;
-    }
-
-    if(!pp){
-        return
-    }
+        toast.error("Email invalide !");
+        return;
+      }
+      
+      if (!passwordRegex.test(password)) {
+        toast.error("Le mot de passe doit contenir une majuscule, une minuscule, un chiffre, un caractère spécial et faire au moins 8 caractères.");
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        toast.error("Les mots de passe ne correspondent pas.");
+        return;
+      }
+      
+      if (!pp) {
+        toast.error("Veuillez ajouter une photo de profil.");
+        return;
+      }
+      
 
     try {
       const token = await register(email, prenom, nom, pp, password);
       switch (token) {
         case "email deja existant !":
-            break;
+          toast.error("Cet email est déjà utilisé !");
+          break;
         case "Internal servor error !":
-            break;
-        case "Token non existant !":
-            break;
+          toast.error("Erreur serveur interne, réessaie plus tard.");
+          break;
         default:
+          toast.success("Inscription réussie !");
           navigate("/win");
       }
+      
     } catch (err) {
-        return "internal server error !";
-    }
+        toast.error("Erreur lors de l'inscription !");
+        return "internal server error !";    }
   };
 
   return (
