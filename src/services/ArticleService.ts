@@ -1,6 +1,6 @@
 import { Articles } from '../Models/Articles';
+import { api } from '../utils/base_url_api';
 
-const api = process.env.REACT_APP_SECRET_IP as string;
 
 
 export const fetchArticles = async (): Promise<Articles[] | string> =>  {
