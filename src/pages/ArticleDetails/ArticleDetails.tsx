@@ -95,11 +95,18 @@ const ArticleDetails: React.FC = () => {
                 <div className="product-info-wrapper">
                     <div className="product-image-section">
                         <div className="main-image-wrapper">
-                            <img
-                                src={images[selectedImage]}
-                                alt={article?.name || "Image produit"}
-                                className="main-product-img"
-                            />
+                        <img
+                            src={images[selectedImage]}
+                            alt={article?.name || "Image produit"}
+                            style={{
+                                width: "100%",
+                                aspectRatio: "1 / 1", 
+                                objectFit: "cover",
+                                objectPosition: "center",
+                                borderRadius: "1rem",
+                            }}
+                                />
+
                         </div>
 
                         {images.length > 1 && (

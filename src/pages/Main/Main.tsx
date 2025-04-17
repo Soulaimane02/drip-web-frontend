@@ -84,10 +84,10 @@ const Main: React.FC = () => {
         toast.info("Veuillez vous connecter pour accéder à cette fonctionnalité.");
         navigate("/login");
     };
-    
+
     return (
         <div className="home-container">
-            <Navbar />
+          <Navbar user={user} />
 
             <main className="main-content">
                 {parentCategories.map((categorie) => (

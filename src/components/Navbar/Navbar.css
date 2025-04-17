@@ -156,16 +156,66 @@
   object-fit: contain;
 }
 
+.user-actions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.profile-wrapper {
+  margin-left: auto;
+  padding-right: 16px; /* petit décalage à droite */
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.mobile-menu-button {
+  display: none;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .nav-center, .nav-buttons {
     display: none;
   }
-
   .mobile-menu-button {
     display: block;
-    margin-left: auto;    
-    margin-right: 4rem;  
   }
+
+  .nav-buttons {
+    display: none; /* cache les boutons desktop en mobile */
+  }
+
+  .mobile-menu-dropdown {
+    background-color: white;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 70px; /* ou la hauteur de ta navbar */
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+
+  .mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .search-container.mobile {
+    margin-bottom: 16px;
+  }
+
+  
 
   .navbar-main {
     padding: 0 0.5rem;
