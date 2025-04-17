@@ -1,0 +1,111 @@
+/* Container spécifique pour l'inscription */
+.inscription-background {
+    background-color: rgba(46, 46, 46, 0.05); /* Fond gris très léger */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-central {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%; 
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff; 
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+/* Form styles */
+.form-action {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-action h1 {
+    font-size: 2rem;
+    color: #7faaff;
+    margin-bottom: 1rem;
+    text-align: center;
+    background: linear-gradient(135deg, #0b265c, #4e4195);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Input styles */
+.form-action input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-action input:focus {
+    border-color: #7faaff;
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.3);
+}
+
+/* Label styles */
+.form-action label {
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Button Styles */
+.form-action button {
+    width: 100%;
+    padding: 12px;
+    background-color: #7faaff;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.form-action button:hover {
+    background-color: #4e89ff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container-central {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .form-action h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* File Input styles */
+.form-action input[type="file"] {
+    padding: 10px;
+    background-color: #f3f4f7;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+}
+
+.form-action input[type="file"]:hover {
+    background-color: #e9e9f0;
+}

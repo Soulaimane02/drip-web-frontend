@@ -1,7 +1,7 @@
 import { Categories } from "../Models/Categorie";
+import { api } from "../utils/base_url_api";
 
 
-const api = process.env.REACT_APP_SECRET_IP as string;
 
 export const fetchAllCategories = async () : Promise<Categories[] | string> =>{
     try{
