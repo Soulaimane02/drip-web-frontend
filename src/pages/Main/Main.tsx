@@ -20,6 +20,10 @@ const Main: React.FC = () => {
     const [articles, setArticles] = useState<Articles[]>([]);
     const [categorieParent, setCategorieParent] = useState<Categories[]>([]);
     const [user, setUser] = useState<User | null>(null);
+    const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
+    const [research, setResearch] = useState("");  
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +31,7 @@ const Main: React.FC = () => {
             const data = await fetchArticles();
             if (typeof data !== "string") {
                 setArticles(data);
+                setFilteredArticles(data); 
             }
         };
 
@@ -37,7 +42,7 @@ const Main: React.FC = () => {
             }
         };
 
-        const loadFetchUser = async () => {
+          const loadFetchUser = async () => {
             try {
                 const token = localStorage.getItem("token");
                 if (!token) {
@@ -61,6 +66,26 @@ const Main: React.FC = () => {
         loadArticles();
         loadCategorieParent();
     }, []);
+
+    // Aide GPT
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const searchQuery = e.target.value.toLowerCase();  // Normaliser la recherche
+      setResearch(searchQuery);
+    
+      if (!searchQuery) {
+        // Si la recherche est vide, afficher tous les articles
+        setFilteredArticles(articles);
+      } else {
+        // Filtrer les articles en fonction du nom, de la description ou du prix
+        const filtered = articles.filter((article) =>
+          article.name.toLowerCase().includes(searchQuery) ||  // Filtrage sur le titre
+          article.price.toString().toLowerCase().includes(searchQuery)  // Filtrage sur le prix (converti en string)
+        );
+        setFilteredArticles(filtered);
+      }
+    };
+    
+
 
     // Regroupement des sous-catégories par catégorie parente (GPT)
     const parentCategories = categorieParent.filter((cat) => !cat.parent);
@@ -86,8 +111,9 @@ const Main: React.FC = () => {
     };
 
     return (
+      
         <div className="home-container">
-          <Navbar user={user} />
+          <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
             <main className="main-content">
                 {parentCategories.map((categorie) => (
@@ -117,21 +143,21 @@ const Main: React.FC = () => {
                     </div>
 
                     <div className="products-grid">
-                        {articles.map((article) =>
-                            user ? (
-                                <Link key={article.id} to={`/article/${article.id}`}>
-                                    <ProductCard product={article} />
-                                </Link>
-                            ) : (
-                                <div
-                                    key={article.id}
-                                    onClick={(e) => handleProtectedClick(e, "article")}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <ProductCard product={article} />
-                                </div>
-                            )
-                        )}
+                        {(filteredArticles.length > 0 ? filteredArticles : articles).map((article) => (
+                          user ? (
+                            <Link key={article.id} to={`/article/${article.id}`}>
+                              <ProductCard product={article} />
+                            </Link>
+                          ) : (
+                            <div
+                              key={article.id}
+                              onClick={(e) => handleProtectedClick(e, "article")}
+                              style={{ cursor: "pointer" }}
+                            >
+                              <ProductCard product={article} />
+                            </div>
+                          )
+                        ))}
                     </div>
                 </section>
 
@@ -185,6 +211,7 @@ const Main: React.FC = () => {
             )}
         </div>
     );
+
 };
 
 export default Main;

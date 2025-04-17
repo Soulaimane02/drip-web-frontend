@@ -6,27 +6,23 @@ import { Search, Menu, X } from "lucide-react";
 import { User } from "../../Models/User";
 import { Role } from "../../utils/enums/role";
 
-
 interface NavbarProps {
   user?: User | null;
+  research?: string;
+  onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  showSearch?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ user }) => {
+const Navbar: React.FC<NavbarProps> = ({ user, research, onSearchChange, showSearch = true }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-
-  const goToProfile = () => {
-    navigate("/profile");
-  };
+  const goToProfile = () => navigate("/profile");
 
   const renderUserActions = () => {
     if (!user) {
@@ -37,29 +33,28 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
         </>
       );
     }
-
+  
     return (
-      <div className="user-actions">
+      <>
         {user.role === Role.User && (
           <>
             <Button text="Favoris" variant="secondary" onClick={() => navigate("/favorites")} />
             <Button text="Devenir vendeur" variant="secondary" onClick={() => navigate("/new-seller")} />
           </>
         )}
-
+  
         {user.role === Role.Seller && (
           <>
-            <Button text="Mes Favoris" variant="secondary" onClick={() => navigate("/favorites")} />
+            <Button text="MesFavoris" variant="secondary" onClick={() => navigate("/favorites")} />
             <Button text="Panel Vendeur" variant="secondary" onClick={() => navigate("/seller/panel")} />
           </>
         )}
-
+  
         {user.role === Role.Admin && (
           <Button text="Panel Admin" variant="secondary" onClick={() => navigate("/admin")} />
         )}
-
+  
         <Button text="Se déconnecter" variant="secondary" onClick={handleLogout} />
-
         <div className="profile-wrapper">
           <img
             src={user?.profilePicture || "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png"}
@@ -68,7 +63,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
             className="profile-pic"
           />
         </div>
-      </div>
+      </>
     );
   };
 
@@ -82,26 +77,32 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
             </a>
           </div>
 
-          <div className="nav-center">
-            <div className="search-container">
-              <input
-                type="text"
-                placeholder="Rechercher sur Drip..."
-                className="search-input"
-              />
-              <Search className="search-icon" size={18} />
+          {showSearch && (
+            <div className="nav-center">
+              <div className="search-container">
+                <input
+                  type="text"
+                  value={research}
+                  onChange={onSearchChange}
+                  placeholder={`Rechercher sur Drip... ${user?.firstName || ''}`} 
+                  className="search-input"
+                />
+                <Search className="search-icon" size={18} />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="nav-buttons">{renderUserActions()}</div>
 
           <div className="mobile-menu-button" onClick={toggleMobileMenu}>
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          <Menu size={24} />
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </div>
         </div>
-                {isMobileMenuOpen && (
-          <div className="mobile-menu-dropdown">
+      </div>
+
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-dropdown active">
+          {showSearch && (
             <div className="search-container mobile">
               <input
                 type="text"
@@ -110,13 +111,13 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               />
               <Search className="search-icon" size={18} />
             </div>
+          )}
 
-            <div className="mobile-buttons">
-              {renderUserActions()}
-            </div>
+          <div className="mobile-buttons">
+            {renderUserActions()}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 };

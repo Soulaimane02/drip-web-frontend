@@ -114,11 +114,6 @@
   gap: 0.75rem;
 }
 
-.mobile-menu-button {
-  display: none;
-  cursor: pointer;
-  color: #4a5568;
-}
 
 .mobile-menu {
   display: none;
@@ -185,12 +180,11 @@
   .nav-center, .nav-buttons {
     display: none;
   }
+
   .mobile-menu-button {
     display: block;
-  }
-
-  .nav-buttons {
-    display: none; /* cache les boutons desktop en mobile */
+    position: absolute; /* Positionnement absolu */
+    right: 70px; /* Décalage de 16px depuis la droite */
   }
 
   .mobile-menu-dropdown {
@@ -198,34 +192,27 @@
     padding: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: absolute;
-    top: 70px; /* ou la hauteur de ta navbar */
+    top: 70px;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 2000;
+    display: none;
+  }
+
+  .mobile-menu-dropdown.active {
+    display: block;
   }
 
   .mobile-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
+    flex-direction: row; /* Modifie de column à row pour les afficher horizontalement */
+    gap: 12px; /* Espacement entre les boutons */
+    justify-content: flex-start; /* Aligne les boutons à gauche */
+    align-items: center; /* Assure que les boutons sont bien alignés verticalement */
   }
 
   .search-container.mobile {
     margin-bottom: 16px;
   }
-
-  
-
-  .navbar-main {
-    padding: 0 0.5rem;
-  }
-
-  .logo-img {
-    height: 80px;
-  }
-
-  .logo-label {
-    font-size: 1rem;
-  }
 }
+

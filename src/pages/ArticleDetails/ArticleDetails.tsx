@@ -11,6 +11,8 @@ import { fetchAllCategories } from "../../services/CategorieService";
 import CategoryMenu from "../../components/CategoryMenu/CategoryMenu";
 import { Categories } from "../../Models/Categorie";
 import Button from "../../components/Button/Button";
+import { User } from "../../Models/User";
+import { fetchUser } from "../../services/UserService";
 
 
 const ArticleDetails: React.FC = () => {
@@ -18,6 +20,7 @@ const ArticleDetails: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<number>(0);
     const { id_article } = useParams();
     const [categorieParent, setCategorieParent] = useState<Categories[]>([]);
+    const [user, setUser] = useState<User | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,8 +31,6 @@ const ArticleDetails: React.FC = () => {
                 console.error("Erreur serveur !");
                 return;
               }
-              console.log("------------")
-              console.log(data);
               setArticle(data as Articles);
             } catch (err) {
               console.error(err);
@@ -43,6 +44,18 @@ const ArticleDetails: React.FC = () => {
             }
         }
 
+        const loadToekn = async () =>{
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const fetchUserByToken = await fetchUser(token);
+                setUser(fetchUserByToken as User);  
+            } catch (error) {
+                console.error("Erreur lors du décodage du token", error);
+            }
+        }
+        }
+        loadToekn();
         loadCategorieParent();
         fetchArticleClient();
     }, [id_article]);
@@ -72,10 +85,14 @@ const ArticleDetails: React.FC = () => {
           subCategoriesMap[cat.parent].push(cat.name);
         }
       });
+
+      console.log(user);
     return (
         <div>
         <div className="container-article-detail">
-            <Navbar></Navbar>
+            <Navbar user={user}  showSearch={false} />
+
+
             <div className="categorie-navigation">
                 {parentCategories.map((categorie) => (
                     <CategoryMenu
