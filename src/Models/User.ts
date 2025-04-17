@@ -1,3 +1,5 @@
+import { Role } from "../utils/enums/role";
+
 export interface User {
     id: string;
     email: string;

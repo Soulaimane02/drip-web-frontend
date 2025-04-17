@@ -29,7 +29,6 @@ const Login: React.FC = () => {
                 case "email deja existant !":
                     toast.error("Cet email existe déjà !");
                     break;
-
                 case "Internal servor error !":
                     toast.error("Erreur serveur interne, réessayez plus tard.");
                     break;
@@ -39,7 +38,8 @@ const Login: React.FC = () => {
                         });                  
                         break;
                 default:
-                  navigate("/winLogin");
+                localStorage.setItem("token", token);
+                  navigate("/");
               }
             
         } catch (error) {

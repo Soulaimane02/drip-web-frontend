@@ -54,8 +54,8 @@ const Inscription: React.FC = () => {
           toast.error("Erreur serveur interne, réessaie plus tard.");
           break;
         default:
-          toast.success("Inscription réussie !");
-          navigate("/win");
+          localStorage.setItem("token", token);
+          navigate("/");
       }
       
     } catch (err) {
