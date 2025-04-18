@@ -90,15 +90,26 @@ const Main: React.FC = () => {
     // Regroupement des sous-catégories par catégorie parente (GPT)
     const parentCategories = categorieParent.filter((cat) => !cat.parent);
     const subCategoriesMap: { [key: string]: string[] } = {};
+    const idHiddenSubCategorie: { [key: string]: string[] } = {};
+
 
     categorieParent.forEach((cat) => {
-        if (cat.parent) {
-            if (!subCategoriesMap[cat.parent]) {
-                subCategoriesMap[cat.parent] = [];
-            }
-            subCategoriesMap[cat.parent].push(cat.name);
+      if (cat.parent) {
+        if (!subCategoriesMap[cat.parent]) {
+          subCategoriesMap[cat.parent] = [];
         }
+        if (!idHiddenSubCategorie[cat.parent]) {
+          idHiddenSubCategorie[cat.parent] = [];
+        }
+    
+        subCategoriesMap[cat.parent].push(cat.name);
+        idHiddenSubCategorie[cat.parent].push(cat.id); 
+      }
     });
+
+    
+
+ 
 
     // Gestion des clics sur les éléments "interdits" si pas connecté (GPT)
     const handleProtectedClick = (e: React.MouseEvent, section: string) => {
@@ -110,25 +121,38 @@ const Main: React.FC = () => {
         navigate("/login");
     };
 
+
+    
     return (
       
         <div className="home-container">
           <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
             <main className="main-content">
-                {parentCategories.map((categorie) => (
+              {parentCategories.map((categorie) => {
+                  const subCats = subCategoriesMap[categorie.id] || [];
+                  const subIds = idHiddenSubCategorie[categorie.id] || [];
+
+                  const subCategoriesWithIds = subCats.map((name, i) => ({
+                    name,
+                    id: subIds[i],
+                  }));
+
+                  return (
                     <div
-                        key={categorie.id}
-                        onClick={(e) => handleProtectedClick(e, "categorie")}
-                        style={{ cursor: !user ? "pointer" : "default" }}
+                      key={categorie.id}
+                      onClick={(e) => handleProtectedClick(e, "categorie")}
+                      style={{ cursor: !user ? "pointer" : "default" }}
                     >
-                        <CategoryMenu
-                            categorie={categorie}
-                            subCategories={subCategoriesMap[categorie.id] || []}
-                            className="category-menu-spacing"
-                        />
+                      <CategoryMenu
+                        categorie={categorie}
+                        subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                        idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                        className="category-menu-spacing"
+                      />
                     </div>
-                ))}
+                  );
+                })}
 
                 <HeroSection />
                 <BrandSection />

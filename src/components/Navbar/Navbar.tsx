@@ -103,16 +103,17 @@ const Navbar: React.FC<NavbarProps> = ({ user, research, onSearchChange, showSea
       {isMobileMenuOpen && (
         <div className="mobile-menu-dropdown active">
           {showSearch && (
-            <div className="search-container mobile">
-              <input
-                type="text"
-                placeholder="Rechercher sur Drip..."
-                className="search-input"
-              />
-              <Search className="search-icon" size={18} />
-            </div>
-          )}
-
+              <div className="search-container mobile">
+                <input
+                  type="text"
+                  value={research}
+                  onChange={onSearchChange}
+                  placeholder={`Rechercher sur Drip... ${user?.firstName || ''}`}
+                  className="search-input"
+                />
+                <Search className="search-icon" size={18} />
+              </div>
+            )}
           <div className="mobile-buttons">
             {renderUserActions()}
           </div>
