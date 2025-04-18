@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import "./CategoryMenu.css";
 import { Categories } from "../../Models/Categorie";
+import { useNavigate } from "react-router";
 
 interface CategoryMenuProps {
   categorie: Categories;
@@ -11,6 +12,8 @@ interface CategoryMenuProps {
 
 const CategoryMenu: React.FC<CategoryMenuProps> = ({categorie, subCategories, className = "",}) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null); 
+  const navigate = useNavigate();
+
 
 
   const categories = [{ name: categorie.name , subCategories: subCategories  }];
@@ -38,7 +41,11 @@ const CategoryMenu: React.FC<CategoryMenuProps> = ({categorie, subCategories, cl
               {category.subCategories.map((sub, idx) => (
                 <a
                   key={idx}
-                  href={`/category/${category.name}/${sub}`}
+                  onClick={() =>
+                    navigate(`/category/${category.name}/${sub}`, {
+                      state: { subCategoryId: sub }
+                    })
+                  }
                   className="subcategory-item"
                 >
                   {sub}
