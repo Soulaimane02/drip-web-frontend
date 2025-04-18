@@ -58,7 +58,7 @@ const ArticleDetails: React.FC = () => {
         loadToekn();
         loadCategorieParent();
         fetchArticleClient();
-    }, [id_article]);
+    }, []);
 
     const images: string[] = Array.isArray(article?.pictures)
         ? article.pictures
