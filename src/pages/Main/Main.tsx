@@ -136,10 +136,14 @@ const Main: React.FC = () => {
                 <section className="products-section">
                     <div className="section-header">
                         <h2 className="section-title">Le Drip du Jour</h2>
-                        <a href="/register" className="view-more-link">
+                        {!user &&(
+                           <a href="/register" className="view-more-link">
                             Explore plus de Drip
                             <span className="view-more-arrow">→</span>
                         </a>
+
+                        )}
+                       
                     </div>
 
                     <div className="products-grid">

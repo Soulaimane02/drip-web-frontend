@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import "./HeroSection.css";
+import { User } from "../../Models/User";
+import { fetchUser } from "../../services/UserService";
 
 const HeroSection: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+
+  useEffect(() =>{
+    const loadFetchUser = async () => {
+      try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+              setUser(null);
+              return;
+          }
+
+          const fetchUserByToken = await fetchUser(token);
+          if (fetchUserByToken === "No token") {
+              setUser(null);
+              return;
+          }
+
+          setUser(fetchUserByToken as User);
+      } catch (error) {
+          setUser(null);
+      }
+  };
+
+  loadFetchUser();
+  });
   return (
     <section className="hero-section">
       <div className="hero-container">
@@ -21,10 +49,18 @@ const HeroSection: React.FC = () => {
               Achetez et vendez des articles de seconde main. 
               Faites des économies tout en faisant un geste pour la planète.
             </p>
-            <a href="/register" className="hero-button">
+            {!user&&(
+              <a href="/register" className="hero-button">
               Commencer maintenant
               <ArrowRight className="hero-button-icon" />
             </a>
+            )};
+            {user?.role === "User" &&(
+              <a href="/new-seller" className="hero-button">
+              Commencer maintenant
+              <ArrowRight className="hero-button-icon" />
+            </a>
+            )};
           </div>
         </div>
       </div>
