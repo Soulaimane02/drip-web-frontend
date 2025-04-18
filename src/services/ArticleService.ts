@@ -20,6 +20,26 @@ export const fetchArticles = async (): Promise<Articles[] | string> =>  {
     }
 }
 
+
+export const fetchArticlesByCategorie = async (id_under_categorie: string): Promise<Articles[] | string> =>  {
+    try {
+        const data = await fetch(`${api}/articles/category/${id_under_categorie}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            }
+        });
+
+        const  allArticles : Articles[] = await data.json();
+        return allArticles;
+        
+    } catch (error) {
+        return "Internal servor error !";
+    }
+}
+
+
+
 export const fetchArticle = async (id_article : string): Promise<Articles | string> => {
     try{
         const data = await fetch(`${api}/articles/${id_article}`, {
