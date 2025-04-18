@@ -12,7 +12,8 @@ interface CategoryMenuProps {
 const CategoryMenu: React.FC<CategoryMenuProps> = ({categorie, subCategories, className = "",}) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null); 
 
-  const categories = [{ name: categorie.name, subCategories: subCategories }];
+
+  const categories = [{ name: categorie.name , subCategories: subCategories  }];
 
   const handleClick = (index: number) => {
     if (window.innerWidth < 768) {

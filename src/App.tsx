@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Inscription from "./pages/Inscription/Inscription";
 import ArticleDetails from "./pages/ArticleDetails/ArticleDetails";
 import { Toaster } from "sonner"; 
+import ArticleByCategorie from "./pages/ArticleByCategorie/ArticleByCategorie";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Inscription />} />
           <Route path="/article/:id_article" element={<ArticleDetails />} />
+          <Route path="/category/:category_name" element={<ArticleByCategorie/>} />
+          <Route path="/category/:category_name/:under_category_name" element={<ArticleByCategorie/>} />
+
         </Routes>
       </BrowserRouter>
 
