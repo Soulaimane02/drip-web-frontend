@@ -265,7 +265,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     color: #6b7280;
 }
 
@@ -394,18 +394,21 @@
 /* User Info Section */
 .dp_user_info {
     position: absolute;
-    bottom: 24px;
-    left: 24px;
+    right: 1px; 
+    
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 12px;
     padding: 8px 12px;
+    
     background-color: rgb(255, 255, 255);
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     cursor: pointer;
     width: 220px;
 }
+
 
 .dp_user_avatar {
     position: relative;
@@ -563,3 +566,9 @@
     color: white;
     font-weight: 600;
   }
+
+
+  .dp_logo_previewe {
+    flex-shrink: 0;
+}
+
