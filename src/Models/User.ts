@@ -7,6 +7,6 @@ export interface User {
     lastName: string;
     rating: number;
     profilePicture: string;
-    password: string;
+    password?: string;
     role: Role;
 }
