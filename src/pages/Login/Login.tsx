@@ -3,6 +3,7 @@ import { login } from "../../services/AuthService";
 import "./Login.css"
 import React, { useState } from "react"
 import Button from "../../components/Button/Button";
+import { toast } from "sonner";
 import { Console } from "console";
 
 
@@ -26,16 +27,23 @@ const Login: React.FC = () => {
             const token = await login(email, password);
             switch (token) {
                 case "email deja existant !":
-                  break;
+                    toast.error("Cet email existe déjà !");
+                    break;
                 case "Internal servor error !":
-                  break;
+                    toast.error("Erreur serveur interne, réessayez plus tard.");
+                    break;
                 case "Token non existant !":
-                  break;
+                    toast.error("Identifiants incorrects", {
+                        description: "Vérifie bien ton adresse email et ton mot de passe.",
+                        });                  
+                        break;
                 default:
-                  navigate("/winLogin");
+                localStorage.setItem("token", token);
+                  navigate("/");
               }
             
         } catch (error) {
+            toast.error("Erreur lors de la connexion !");
             return "Internal server error"
             
         }

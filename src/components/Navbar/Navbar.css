@@ -114,11 +114,6 @@
   gap: 0.75rem;
 }
 
-.mobile-menu-button {
-  display: none;
-  cursor: pointer;
-  color: #4a5568;
-}
 
 .mobile-menu {
   display: none;
@@ -156,6 +151,31 @@
   object-fit: contain;
 }
 
+.user-actions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+}
+
+.profile-wrapper {
+  margin-left: auto;
+  padding-right: 16px; /* petit décalage à droite */
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.mobile-menu-button {
+  display: none;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .nav-center, .nav-buttons {
     display: none;
@@ -163,19 +183,36 @@
 
   .mobile-menu-button {
     display: block;
-    margin-left: auto;    
-    margin-right: 4rem;  
+    position: absolute; /* Positionnement absolu */
+    right: 70px; /* Décalage de 16px depuis la droite */
   }
 
-  .navbar-main {
-    padding: 0 0.5rem;
+  .mobile-menu-dropdown {
+    background-color: white;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    display: none;
   }
 
-  .logo-img {
-    height: 80px;
+  .mobile-menu-dropdown.active {
+    display: block;
   }
 
-  .logo-label {
-    font-size: 1rem;
+  .mobile-buttons {
+    display: flex;
+    flex-direction: row; /* Modifie de column à row pour les afficher horizontalement */
+    gap: 12px; /* Espacement entre les boutons */
+    justify-content: flex-start; /* Aligne les boutons à gauche */
+    align-items: center; /* Assure que les boutons sont bien alignés verticalement */
+  }
+
+  .search-container.mobile {
+    margin-bottom: 16px;
   }
 }
+
