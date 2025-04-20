@@ -1,0 +1,206 @@
+/* Styles de base avec préfixe rs_ pour éviter les conflits */
+.rs_review_section {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style de l'élément de revue */
+.rs_review_item {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* En-tête de la revue avec informations utilisateur */
+.rs_review_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+/* Section info utilisateur */
+.rs_user_info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rs_user_avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.rs_article_avatar {
+    width: 100%;
+    max-width: 300px; 
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 1rem; 
+    display: block;
+}
+
+
+.rs_user_details {
+    display: flex;
+    flex-direction: column;
+}
+
+.rs_user_name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #333;
+}
+
+.rs_user_stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.rs_stat_item {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.rs_stat_value {
+    font-weight: 600;
+}
+
+/* Section évaluation */
+.rs_review_rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.rs_stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rs_star {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.rs_star_filled {
+    color: #FFB800;
+}
+
+.rs_star_empty {
+    color: #E0E0E0;
+}
+
+.rs_review_date {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Contenu de la revue */
+.rs_review_content {
+    margin-bottom: 16px;
+}
+
+.rs_review_text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    color: #444;
+}
+
+/* Actions de la revue */
+.rs_review_actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.rs_action_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rs_action_button:hover {
+    background-color: #f5f5f5;
+}
+
+.rs_public_comment, .rs_direct_message {
+    min-width: 140px;
+}
+
+.rs_like_button {
+    padding: 8px;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+}
+
+.rs_like_button.rs_liked {
+    color: #e0245e;
+    border-color: #e0245e;
+    background-color: rgba(224, 36, 94, 0.1);
+}
+
+/* Séparateur entre les revues */
+.rs_review_divider {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .rs_review_header {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .rs_review_rating {
+        align-items: flex-start;
+        margin-left: 76px; /* Alignement avec le contenu utilisateur */
+    }
+    
+    .rs_review_actions {
+        flex-wrap: wrap;
+    }
+    
+    .rs_action_button {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .rs_user_info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .rs_review_rating {
+        margin-left: 0;
+    }
+    
+    .rs_user_stats {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
