@@ -74,7 +74,7 @@ const DetailsProfile: React.FC = () => {
 
     return (
         <div className="db_main_container">
-            <Navbar />
+            <Navbar user={user}  showSearch={false} />
             <div className="dp_profile_container">
                 <div className="dp_header_section">
                     <div className="dp_logo_container">
@@ -92,7 +92,7 @@ const DetailsProfile: React.FC = () => {
                     <div className="dp_company_header">
                         <h1 className="dp_company_name">{user?.lastName} {user?.firstName}</h1>
                         <div className="dp_company_url">
-                            drip.com/{user?.firstName.toLowerCase().replace(/\s+/g, '-')}
+                            drip.com/{user?.firstName?.toLowerCase().replace(/\s+/g, '-')}
                             <ExternalLink size={14} className="dp_external_icon" />
                         </div>
                     </div>
@@ -158,7 +158,7 @@ const DetailsProfile: React.FC = () => {
                             </div>
                             <div className="dp_input_group dp_url_input_group">
                                 <div className="dp_url_prefix">drip.com/</div>
-                                <span className="dp_text_input dp_url_input">{firstName.toLowerCase().replace(/\s+/g, '-')}</span>
+                                <span className="dp_text_input dp_url_input">{firstName?.toLowerCase().replace(/\s+/g, '-')}</span>
                             </div>
                         </div>
                     </div>
