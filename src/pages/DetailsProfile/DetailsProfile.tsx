@@ -15,6 +15,7 @@ const DetailsProfile: React.FC = () => {
     const [firstName, setFirstName] = useState("");
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         const loadToken = async () => {
