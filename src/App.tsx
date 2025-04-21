@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import ArticleByCategorie from "./pages/ArticleByCategorie/ArticleByCategorie";
 import DetailsProfile from "./pages/DetailsProfile/DetailsProfile";
 import AllArticle from "./pages/AllArticle/AllArticle";
+import Faq from "./pages/Faq/Faq";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route path="/category/:category_name/:under_category_name" element={<ArticleByCategorie/>} />
           <Route path="/profile" element={<DetailsProfile/>} />
           <Route path="/all-drip" element={<AllArticle/>} />
+          <Route path="/faq" element={<Faq/>} />
+
 
         </Routes>
       </BrowserRouter>
