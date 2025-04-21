@@ -8,6 +8,7 @@ import ArticleByCategorie from "./pages/ArticleByCategorie/ArticleByCategorie";
 import DetailsProfile from "./pages/DetailsProfile/DetailsProfile";
 import AllArticle from "./pages/AllArticle/AllArticle";
 import Faq from "./pages/Faq/Faq";
+import Delivery from "./pages/Delivery/Delivery";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path="/profile" element={<DetailsProfile/>} />
           <Route path="/all-drip" element={<AllArticle/>} />
           <Route path="/faq" element={<Faq/>} />
+          <Route path="/delivery" element={<Delivery/>} />
+
 
 
         </Routes>
