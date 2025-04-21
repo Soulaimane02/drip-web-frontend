@@ -67,3 +67,25 @@ export const deleteUser = async (idUser: string) :Promise<void | string> =>{
         return "Internal server error"   
     }
 }
+
+export const fetchAllSeller = async () :Promise<User[] | string> =>{
+    try {
+        const data = await fetch(`${api}/users`,{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+              },
+
+
+        });
+        const dataJson: User[] = await data.json();
+        if(!dataJson){
+            return "Toujours pas de vendeur sur Drip 🤔"
+        }
+        return dataJson; 
+        
+    } catch (error) {
+        return "Internal server error"
+        
+    }
+}
