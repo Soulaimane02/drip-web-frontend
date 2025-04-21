@@ -29,35 +29,36 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="footer-column">
-            <h3 className="footer-title">Catégories</h3>
-            <ul className="footer-list">
-              <li><a href="#" className="footer-link">Homme</a></li>
-              <li><a href="#" className="footer-link">Femme</a></li>
-              <li><a href="#" className="footer-link">Enfant</a></li>
-              <li><a href="#" className="footer-link">Accessoires</a></li>
-              <li><a href="#" className="footer-link">Maison</a></li>
-            </ul>
+          <h3 className="footer-title">Notre Idéologie</h3>
+          <ul className="footer-list">
+            <li><span className="footer-link">Style sans compromis</span></li>
+            <li><span className="footer-link">Authenticité avant tout</span></li>
+            <li><span className="footer-link">Mode pour tous</span></li>
+            <li><span className="footer-link">Respect & durabilité</span></li>
+            <li><span className="footer-link">Exprime ton Drip</span></li>
+          </ul>
           </div>
 
           <div className="footer-column">
             <h3 className="footer-title">Support</h3>
             <ul className="footer-list">
-              <li><a href="#" className="footer-link">FAQ</a></li>
-              <li><a href="#" className="footer-link">Livraison</a></li>
-              <li><a href="#" className="footer-link">Retours</a></li>
-              <li><a href="#" className="footer-link">Contact</a></li>
-              <li><a href="#" className="footer-link">Confidentialité</a></li>
+              <li><a href="/faq" className="footer-link">FAQ</a></li>
+              <li><a href="/delivery" className="footer-link">Livraison</a></li>
+              <li><a href="/returns" className="footer-link">Retours</a></li>
+              <li><a href="/contact" className="footer-link">Contact</a></li>
+              <li><a href="/privacy" className="footer-link">Confidentialité</a></li>
             </ul>
-          </div>
+            </div>
 
-          <div className="footer-column">
-            <h3 className="footer-title">À propos</h3>
-            <ul className="footer-list">
-              <li><a href="#" className="footer-link">Notre mission</a></li>
-              <li><a href="#" className="footer-link">Éco-responsabilité</a></li>
-              <li><a href="#" className="footer-link">Presse</a></li>
-              <li><a href="#" className="footer-link">Recrutement</a></li>
-              <li><a href="#" className="footer-link">Actus</a></li>
+            <div className="footer-column">
+              <h3 className="footer-title">À propos</h3>
+              <ul className="footer-list">
+                <li><a href="/mission" className="footer-link">Notre mission</a></li>
+                <li><a href="/sustainability" className="footer-link">Éco-responsabilité</a></li>
+                <li><a href="/press" className="footer-link">Presse</a></li>
+                <li><a href="/careers" className="footer-link">Recrutement</a></li>
+                <li><a href="/news" className="footer-link">Actus</a></li>
+
             </ul>
           </div>
         </div>
