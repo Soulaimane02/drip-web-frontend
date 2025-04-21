@@ -83,3 +83,25 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+
+  .overlay-carousel {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+  }
+  
+  .overlay-carousel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease-in-out;
+    border-radius: 6px;
+  }
+  
