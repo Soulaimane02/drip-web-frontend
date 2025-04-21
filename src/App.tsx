@@ -6,6 +6,7 @@ import ArticleDetails from "./pages/ArticleDetails/ArticleDetails";
 import { Toaster } from "sonner"; 
 import ArticleByCategorie from "./pages/ArticleByCategorie/ArticleByCategorie";
 import DetailsProfile from "./pages/DetailsProfile/DetailsProfile";
+import AllArticle from "./pages/AllArticle/AllArticle";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path="/article/:id_article" element={<ArticleDetails />} />
           <Route path="/category/:category_name/:under_category_name" element={<ArticleByCategorie/>} />
           <Route path="/profile" element={<DetailsProfile/>} />
+          <Route path="/all-drip" element={<AllArticle/>} />
+
         </Routes>
       </BrowserRouter>
 

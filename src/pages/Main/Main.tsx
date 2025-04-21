@@ -172,11 +172,19 @@ const Main: React.FC = () => {
                         </a>
 
                         )}
+
+                        {user &&(
+                           <a href="/all-drip" className="view-more-link">
+                            Explore plus de Drip
+                            <span className="view-more-arrow">→</span>
+                        </a>
+
+                        )}  
                        
                     </div>
 
                     <div className="products-grid">
-                        {(filteredArticles.length > 0 ? filteredArticles : articles).map((article) => (
+                    {(filteredArticles.length > 0 ? filteredArticles : articles).slice(0, 20).map((article) => (
                           user ? (
                             <Link key={article.id} to={`/article/${article.id}`}>
                               <ProductCard product={article} />
