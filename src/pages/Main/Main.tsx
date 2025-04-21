@@ -69,19 +69,24 @@ const Main: React.FC = () => {
 
     // Aide GPT
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const searchQuery = e.target.value.toLowerCase();  // Normaliser la recherche
+      const searchQuery = e.target.value.toLowerCase();
       setResearch(searchQuery);
     
       if (!searchQuery) {
         // Si la recherche est vide, afficher tous les articles
         setFilteredArticles(articles);
       } else {
-        // Filtrer les articles en fonction du nom, de la description ou du prix
         const filtered = articles.filter((article) =>
-          article.name.toLowerCase().includes(searchQuery) ||  // Filtrage sur le titre
-          article.price.toString().toLowerCase().includes(searchQuery)  // Filtrage sur le prix (converti en string)
+          article.name.toLowerCase().includes(searchQuery) ||
+          article.price.toString().includes(searchQuery)
         );
-        setFilteredArticles(filtered);
+    
+        if (filtered.length === 0) {
+          setFilteredArticles([]); // Vide les articles affichés
+          toast.info("Aucun article trouvé.");
+        } else {
+          setFilteredArticles(filtered);
+        }
       }
     };
     
