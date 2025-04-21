@@ -9,6 +9,14 @@ import DetailsProfile from "./pages/DetailsProfile/DetailsProfile";
 import AllArticle from "./pages/AllArticle/AllArticle";
 import Faq from "./pages/Faq/Faq";
 import Delivery from "./pages/Delivery/Delivery";
+import Returns from "./pages/Returns/Returns";
+import Contact from "./pages/Contact/Contact";
+import Privacy from "./pages/Privacy/Privacy";
+import Mission from "./pages/Mission/Mission";
+import Sustainability from "./pages/Sustainability/Sustainability";
+import Press from "./pages/Press/Press";
+import Careers from "./pages/Careers/Careers";
+import News from "./pages/News/News";
 
 function App() {
   return (
@@ -24,6 +32,14 @@ function App() {
           <Route path="/all-drip" element={<AllArticle/>} />
           <Route path="/faq" element={<Faq/>} />
           <Route path="/delivery" element={<Delivery/>} />
+          <Route path="/returns" element={<Returns/>} />
+          <Route path="/contact" element={<Contact/>} />
+          <Route path="/privacy" element={<Privacy/>} />
+          <Route path="/mission" element={<Mission/>} />
+          <Route path="/sustainability" element={<Sustainability/>} />
+          <Route path="/press" element={<Press/>} />
+          <Route path="/careers" element={<Careers/>} />
+          <Route path="/news" element={<News/>} />
 
 
 
