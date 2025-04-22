@@ -1,6 +1,7 @@
 /* Styles pour la carte vendeur avec préfixe sc_ pour éviter les conflits */
 .sc_seller_card {
     position: relative;
+    grid-template-columns: repeat(4, 1fr); /* 4 cartes sur PC */
     width: 240px;
     height: 320px;
     background-color: #ffffff;
@@ -14,8 +15,15 @@
     overflow: hidden;
 }
 
+.sc_cards_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
 .sc_seller_card:hover {
     transform: translateY(-5px);
+    height: 440px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -118,7 +126,7 @@
 }
 
 .sc_image_carousel.sc_visible {
-    height: 60px;
+    height: 190px;
     margin-bottom: 15px;
 }
 
@@ -177,7 +185,7 @@
 .sc_view_profile_button {
     width: 100%;
     padding: 8px;
-    background-color: #a78bfa;
+    background: linear-gradient(135deg, #1644a0, #5f4fba);
     color: white;
     border: none;
     border-radius: 6px;
@@ -188,7 +196,7 @@
 }
 
 .sc_view_profile_button:hover {
-    background-color: #8b5cf6;
+    background: linear-gradient(135deg, #1b479f, #30227b);
 }
 
 /* Responsive */
@@ -196,6 +204,7 @@
     .sc_seller_card {
         width: 220px;
     }
+    
 }
 
 @media (max-width: 480px) {
@@ -204,3 +213,16 @@
         max-width: 280px;
     }
 }
+
+.sc_rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sc_stat_value {
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  

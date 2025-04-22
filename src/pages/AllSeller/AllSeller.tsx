@@ -94,21 +94,28 @@ const AllSeller: React.FC = () =>{
                         Pas de DripSeller à ton goût ? Deviens-le.                            
                         <span className="view-more-arrow">→</span>
                         </a>
-
-                       
                     </div>
+                    <div className="products-gride">
+  {(filteredSeller.length > 0 ? filteredSeller : seller)
+    .filter((sell) => sell.role === "Seller")
+    .map((sell) => {
+      // Filtrer les articles pour ce vendeur
+      const sellerArticles = articles.filter(
+        (article) => article.userId === sell.id
+      );
+      
+      return (
+        <Link
+          key={`${sell.firstName.toLowerCase()}-${sell.id}`}
+          to={`/seller/${sell.firstName.toLowerCase()}-${sell.id}`}
+        >
+          {/* Passer les articles filtrés pour chaque vendeur */}
+          <SellerCard seller={sell} articles={sellerArticles} />
+        </Link>
+      );
+    })}
+</div>
 
-                    <div className="products-grid">
-                    {user?.role === "User" &&
-                    (filteredSeller.length > 0 ? filteredSeller : seller).map((sell) => (
-                        <Link
-                        key={`${sell.firstName.toLowerCase()}-${sell.id}`}
-                        to={`/seller/${sell.firstName.toLowerCase()}-${sell.id}`}
-                        >
-                        <SellerCard seller={sell} articles={articles} />
-                        </Link>
-                    ))}
-                    </div>
                 </section>
             </main>
         </div>

@@ -8,6 +8,7 @@ export interface Articles {
     views: number;
     condition: string;
     categories?: string[] | string;
+    userId: string;
     size?: string;
     color?: string;
 }
