@@ -1,0 +1,128 @@
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 1rem 4rem;
+    flex-grow: 1;
+    background-color: #fcfcfc;
+  }
+  
+  .category-menu-spacing {
+    margin-top: 0.5rem;
+  }
+  
+  .products-section {
+    padding: 2.5rem 0;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .view-more-link {
+    display: flex;
+    align-items: center;
+    color: #060606;
+    text-decoration: none;
+    text-decoration: none;
+  }
+  
+  .view-more-link:hover {
+    text-decoration: none;
+  }
+  
+  
+  .view-more-arrow {
+    margin-left: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  .products-gride {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .features-section {
+    padding: 2.5rem 0;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .feature-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .feature-icon-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .feature-icon-background {
+    background: linear-gradient(135deg, #7faaff, #b3a5ff);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    margin-right: 1rem;
+  }
+  
+  .feature-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: rgb(255, 252, 252);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  
+  .feature-title {
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  
+  .feature-description {
+    color: #6b7280;
+  }
+  
+  a{
+    text-decoration: none;
+    color: #060606;
+  }
+  
+  @media (min-width: 768px) {
+    .products-gride {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .products-gride {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }

@@ -1,0 +1,228 @@
+/* Styles pour la carte vendeur avec préfixe sc_ pour éviter les conflits */
+.sc_seller_card {
+    position: relative;
+    grid-template-columns: repeat(4, 1fr); /* 4 cartes sur PC */
+    width: 240px;
+    height: 320px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.sc_cards_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+.sc_seller_card:hover {
+    transform: translateY(-5px);
+    height: 440px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête de la carte */
+.sc_card_header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.sc_more_options_button {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.sc_more_options_button:hover {
+    background-color: #f3f4f6;
+}
+
+/* Informations du vendeur */
+.sc_seller_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sc_avatar_container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #f3f4f6;
+}
+
+.sc_avatar_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sc_seller_name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 4px 0;
+    text-align: center;
+}
+
+.sc_seller_position {
+    font-size: 14px;
+    color: #9ca3af;
+    margin: 0;
+    text-align: center;
+}
+
+/* Statistiques du vendeur */
+.sc_seller_stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.sc_stat_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.sc_stat_value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.sc_stat_label {
+    font-size: 10px;
+    color: #9ca3af;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* Carousel d'images */
+.sc_image_carousel {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    margin-bottom: 0;
+}
+
+.sc_image_carousel.sc_visible {
+    height: 190px;
+    margin-bottom: 15px;
+}
+
+.sc_carousel_images {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.sc_carousel_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.sc_carousel_dots {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+}
+
+.sc_carousel_dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 0 3px;
+}
+
+.sc_carousel_dot.sc_active {
+    background-color: white;
+}
+
+.sc_no_images {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    border-radius: 6px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* Bouton d'action */
+.sc_action_section {
+    margin-top: auto;
+    width: 100%;
+}
+
+.sc_view_profile_button {
+    width: 100%;
+    padding: 8px;
+    background: linear-gradient(135deg, #1644a0, #5f4fba);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.sc_view_profile_button:hover {
+    background: linear-gradient(135deg, #1b479f, #30227b);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sc_seller_card {
+        width: 220px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .sc_seller_card {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+.sc_rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sc_stat_value {
+    margin-left: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  

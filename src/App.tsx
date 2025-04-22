@@ -17,6 +17,7 @@ import Sustainability from "./pages/Sustainability/Sustainability";
 import Press from "./pages/Press/Press";
 import Careers from "./pages/Careers/Careers";
 import News from "./pages/News/News";
+import AllSeller from "./pages/AllSeller/AllSeller";
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
           <Route path="/press" element={<Press/>} />
           <Route path="/careers" element={<Careers/>} />
           <Route path="/news" element={<News/>} />
+          <Route path="/all-seller" element={<AllSeller/>} />
+
 
 
 
