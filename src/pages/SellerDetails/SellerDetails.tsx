@@ -3,10 +3,16 @@ import "./SellerDetails.css"
 import React, { useEffect, useState } from "react"
 import { User } from "../../Models/User";
 import { fetchUser } from "../../services/UserService";
+import SellerDetail from "../../components/SellerDetails/SellerDetails";
+import { Articles } from "../../Models/Articles";
+import { fetchArticles } from "../../services/ArticleService";
 
 const SellerDetails: React.FC = () =>{
     const {id_user} = useParams();
+    const [articles, setArticles] = useState<Articles[]>([]);
     const [user, setUser] = useState<User | null>(null);
+    const [seller, setSeller] = useState<User | null>(null);
+
 
     useEffect(() => {
         const loadFetchUser = async () => {
@@ -28,7 +34,15 @@ const SellerDetails: React.FC = () =>{
             setUser(null);
           }
         };
+
+        const loadArticles = async () => {
+            const data = await fetchArticles();
+            if (typeof data !== "string") {
+                setArticles(data);
+            }
+        };
     
+        loadArticles();
         loadFetchUser();
       }, []);
     
@@ -36,7 +50,8 @@ const SellerDetails: React.FC = () =>{
     return(
         <div>
             <p>{id_user}</p>
-            
+
+            <SellerDetail seller={user} articles={articles}/>
         </div>
     )
 }
