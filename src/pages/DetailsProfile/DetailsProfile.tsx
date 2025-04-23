@@ -8,6 +8,7 @@ import { Delete } from "lucide-react";
 import { useNavigate } from "react-router";
 import { User } from "../../Models/User";
 import { fetchUser, uptadeUser, deleteUser } from "../../services/UserService";
+import { toast } from "sonner";
 
 const DetailsProfile: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -46,7 +47,10 @@ const DetailsProfile: React.FC = () => {
     };
 
     const handleUpdate = async () => {
-        if (user && user.id) {
+        if (firstName.trim() === "" || name.trim() === "") {
+            toast.error("Vous ne pouvez pas laisser à vide !");
+            return;
+        }        if (user && user.id) {
             const formData = new FormData();
             formData.append("email", user.email);
             formData.append("firstName", firstName);
@@ -93,15 +97,36 @@ const DetailsProfile: React.FC = () => {
                     <div className="dp_company_header">
                         <h1 className="dp_company_name">{user?.lastName} {user?.firstName}</h1>
                         <div className="dp_company_url">
-                            drip.com/{user?.firstName?.toLowerCase().replace(/\s+/g, '-')}
+                        {user?.role === "Seller" && (
+                            <>
+                           <span>
+                            drip.com/{`seller/${user.firstName.toLowerCase().replace(/\s+/g, '-')}/${user.id}`}
+                            </span>
                             <ExternalLink size={14} className="dp_external_icon" />
+                            </>
+                        )}
+
                         </div>
                     </div>
                     <div className="dp_view_profile_container">
-                        <Button className="supp-profile-button" onClick={handleDelete}>
-                            <Delete size={18} className="mr-2" />
-                            Supprimer mon Profil
-                        </Button>                     
+                    <Button
+                    className="supp-profile-button"
+                    onClick={async () => {
+                        const confirmDelete = window.confirm(
+                        "⚠️ Es-tu sûr de vouloir supprimer ton profil ? Cette action est irréversible."
+                        );
+                        if (confirmDelete && user && user.id) {
+                        const result = await deleteUser(user.id);
+                        if (!result) {
+                            navigate("/login");
+                        }
+                        }
+                    }}
+                    >
+                    <Delete size={18} className="mr-2" />
+                    Supprimer mon Profil
+                    </Button>
+                     
                     </div>
                 </div>
 
@@ -158,8 +183,12 @@ const DetailsProfile: React.FC = () => {
                                 />
                             </div>
                             <div className="dp_input_group dp_url_input_group">
-                                <div className="dp_url_prefix">drip.com/</div>
-                                <span className="dp_text_input dp_url_input">{firstName?.toLowerCase().replace(/\s+/g, '-')}</span>
+                                {user?.role === "Seller" &&(
+                                    <>
+                                       <div className="dp_url_prefix">drip.com/</div>
+                                        <span className="dp_text_input dp_url_input">{firstName?.toLowerCase().replace(/\s+/g, '-')}/{user.id}</span>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

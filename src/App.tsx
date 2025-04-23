@@ -18,6 +18,7 @@ import Press from "./pages/Press/Press";
 import Careers from "./pages/Careers/Careers";
 import News from "./pages/News/News";
 import AllSeller from "./pages/AllSeller/AllSeller";
+import SellerDetails from "./pages/SellerDetails/SellerDetails";
 
 function App() {
   return (
@@ -42,10 +43,7 @@ function App() {
           <Route path="/careers" element={<Careers/>} />
           <Route path="/news" element={<News/>} />
           <Route path="/all-seller" element={<AllSeller/>} />
-
-
-
-
+          <Route path="/seller/:firstName/:id_user" element={<SellerDetails/>} />
         </Routes>
       </BrowserRouter>
 
