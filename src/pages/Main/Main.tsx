@@ -22,6 +22,8 @@ const Main: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
 
 
     const navigate = useNavigate();
@@ -42,30 +44,42 @@ const Main: React.FC = () => {
             }
         };
 
-          const loadFetchUser = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    setUser(null);
-                    return;
-                }
-
-                const fetchUserByToken = await fetchUser(token);
-                if (fetchUserByToken === "No token") {
-                    setUser(null);
-                    return;
-                }
-
-                setUser(fetchUserByToken as User);
-            } catch (error) {
-                setUser(null);
+        const loadFetchUser = async () => {
+          try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              setUser(null);
+              setIsLoadingUser(false);
+              return;
             }
+        
+            const fetchUserByToken = await fetchUser(token);
+            if (fetchUserByToken === "No token") {
+              setUser(null);
+              setIsLoadingUser(false);
+              return;
+            }
+        
+            setUser(fetchUserByToken as User);
+          } catch (error) {
+            setUser(null);
+          } finally {
+            setIsLoadingUser(false);
+          }
         };
+        
 
         loadFetchUser();
         loadArticles();
         loadCategorieParent();
     }, []);
+
+    useEffect(() => {
+      if (!isLoadingUser && user === null) {
+        toast.info("Session expirée ou token invalide");
+          navigate("/login");
+        }
+      }, [user, navigate]);
 
     // Aide GPT
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

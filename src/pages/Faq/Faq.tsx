@@ -4,34 +4,52 @@ import Navbar from "../../components/Navbar/Navbar";
 import { User } from "../../Models/User";
 import { fetchUser } from "../../services/UserService";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const Faq: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
 
     useEffect(() => {
 
-          const loadFetchUser = async () => {
+        const loadFetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    setUser(null);
-                    return;
-                }
-
-                const fetchUserByToken = await fetchUser(token);
-                if (fetchUserByToken === "No token") {
-                    setUser(null);
-                    return;
-                }
-
-                setUser(fetchUserByToken as User);
-            } catch (error) {
+              const token = localStorage.getItem("token");
+              if (!token) {
                 setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              const fetchUserByToken = await fetchUser(token);
+              if (fetchUserByToken === "No token") {
+                setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              setUser(fetchUserByToken as User);
+            } catch (error) {
+              setUser(null);
+            } finally {
+              setIsLoadingUser(false);
             }
-        };
+          };
+          
 
         loadFetchUser();
     }, []);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!isLoadingUser && user === null) {
+            toast.info("Session expirée ou token invalide");
+          navigate("/login");
+        }
+      }, [user, navigate]);
+
   return (
     <div>
     <Navbar user={user} showSearch={false}></Navbar>

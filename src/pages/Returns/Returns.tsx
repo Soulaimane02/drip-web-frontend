@@ -4,33 +4,49 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { User } from "../../Models/User";
 import { fetchUser } from "../../services/UserService";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const Returns: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
 
   useEffect(() => {
     const loadFetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            setUser(null);
+            setIsLoadingUser(false);
+            return;
+          }
+      
+          const fetchUserByToken = await fetchUser(token);
+          if (fetchUserByToken === "No token") {
+            setUser(null);
+            setIsLoadingUser(false);
+            return;
+          }
+      
+          setUser(fetchUserByToken as User);
+        } catch (error) {
           setUser(null);
-          return;
+        } finally {
+          setIsLoadingUser(false);
         }
-
-        const fetchUserByToken = await fetchUser(token);
-        if (fetchUserByToken === "No token") {
-          setUser(null);
-          return;
-        }
-
-        setUser(fetchUserByToken as User);
-      } catch (error) {
-        setUser(null);
-      }
-    };
-
+      };
+      
     loadFetchUser();
   }, []);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoadingUser && user === null) {
+        toast.info("Session expirée ou token invalide");
+        navigate("/login");
+      }
+    }, [user, navigate]);
 
   return (
     <div>

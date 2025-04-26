@@ -18,6 +18,7 @@ import { fetchUser, fetchUserOrSellerById } from "../../services/UserService";
 import ReviewSection from "../../components/ReviewSection/ReviewSection";
 import SellerProfile from "../../components/SellerProfile/SellerProfile";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const ArticleDetails: React.FC = () => {
   const [article, setArticle] = useState<Articles>();
@@ -28,6 +29,8 @@ const ArticleDetails: React.FC = () => {
   const [showReview, setShowReview] = useState(false);
   const [showReviewSeller, setShowReviewSeller] = useState(false);
   const [seller, setSeller] = useState<User | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
   
   const navigate = useNavigate();
 
@@ -86,7 +89,7 @@ const ArticleDetails: React.FC = () => {
   
     fetchSeller();
   }, [article?.userId]);
-  
+
   const images: string[] = Array.isArray(article?.pictures)
     ? article.pictures
     : article?.pictures
@@ -112,6 +115,8 @@ const ArticleDetails: React.FC = () => {
       subCategoriesMap[cat.parent].push(cat.name);
     }
   });
+
+
 
   return (
     <div>

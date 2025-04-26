@@ -11,7 +11,7 @@
   .not-found-code {
     font-size: 6rem;
     font-weight: 700;
-    color: #1eb4a2;
+    color: #2e20ad;
     margin-bottom: 1rem;
   }
   
@@ -29,7 +29,7 @@
   
   .not-found-button {
     padding: 0.625rem 1.5rem;
-    background-color: #1eb4a2;
+    background-color: #212092;
     color: white;
     border-radius: 9999px;
     text-decoration: none;
@@ -37,5 +37,5 @@
   }
   
   .not-found-button:hover {
-    background-color: #18a190;
+    background-color: #3842cb;
   }

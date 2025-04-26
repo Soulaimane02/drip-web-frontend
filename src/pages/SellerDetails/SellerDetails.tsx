@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import "./SellerDetails.css"
 import React, { useEffect, useState } from "react"
 import { User } from "../../Models/User";
@@ -11,6 +11,7 @@ import CategoryMenu from "../../components/CategoryMenu/CategoryMenu";
 import { Categories } from "../../Models/Categorie";
 import { fetchAllCategories } from "../../services/CategorieService";
 import Footer from "../../components/Footer/Footer";
+import { toast } from "sonner";
 
 const SellerDetails: React.FC = () =>{
     const {id_user} = useParams();
@@ -18,29 +19,35 @@ const SellerDetails: React.FC = () =>{
     const [user, setUser] = useState<User | null>(null);
     const [seller, setSeller] = useState<User | null>(null);
     const [categorieParent, setCategorieParent] = useState<Categories[]>([]);
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
 
 
     useEffect(() => {
-        const loadFetchUser = async () => {
-          try {
-            const token = localStorage.getItem("token");
-            if (!token) {
-              setUser(null);
-              return;
-            }
-    
-            const fetchUserByToken = await fetchUser(token);
-            if (fetchUserByToken === "No token") {
-              setUser(null);
-              return;
-            }
-    
-            setUser(fetchUserByToken as User);
-          } catch (error) {
+      const loadFetchUser = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
             setUser(null);
+            setIsLoadingUser(false);
+            return;
           }
-        };
-
+      
+          const fetchUserByToken = await fetchUser(token);
+          if (fetchUserByToken === "No token") {
+            setUser(null);
+            setIsLoadingUser(false);
+            return;
+          }
+      
+          setUser(fetchUserByToken as User);
+        } catch (error) {
+          setUser(null);
+        } finally {
+          setIsLoadingUser(false);
+        }
+      };
+      
         const loadArticles = async () => {
             const data = await fetchArticles();
             if (typeof data !== "string") {
@@ -72,6 +79,14 @@ const SellerDetails: React.FC = () =>{
       const sellerArticles = articles.filter(
         (article) => article.userId === seller?.id
       );
+
+      const navigate = useNavigate();
+      useEffect(() => {
+        if (!isLoadingUser && user === null) {
+          toast.info("Session expirée ou token invalide");
+            navigate("/login");
+          }
+        }, [user, navigate]);
     
 
 
