@@ -89,3 +89,24 @@ export const fetchAllSeller = async () :Promise<User[] | string> =>{
         
     }
 }
+
+export const fetchUserOrSellerById = async (id: string): Promise<User | string> => {
+    try {
+      const response = await fetch(`${api}/users/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        return "User not found";
+      }
+  
+      const userData: User = await response.json();
+      return userData;
+    } catch (error) {
+      return "Internal server error";
+    }
+  };
+  

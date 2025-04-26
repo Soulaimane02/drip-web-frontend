@@ -110,7 +110,6 @@ const AllSeller: React.FC = () =>{
           to={`/seller/${sell.firstName.toLowerCase()}/${sell.id}`}
           state={sell.id}
         >
-          {/* Passer les articles filtrés pour chaque vendeur */}
           <SellerCard seller={sell} articles={sellerArticles} />
         </Link>
       );
