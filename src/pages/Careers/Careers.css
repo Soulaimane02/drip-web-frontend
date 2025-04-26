@@ -1,0 +1,45 @@
+.sustainability-container,
+.press-container,
+.careers-container,
+.news-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  margin-top: 70px;
+}
+
+.sustainability-title,
+.press-title,
+.careers-title,
+.news-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.sustainability-section,
+.press-section,
+.careers-section,
+.news-section {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.sustainability-section h3,
+.press-section h3,
+.careers-section h3,
+.news-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sustainability-section p,
+.press-section p,
+.careers-section p,
+.news-section p {
+  font-size: 0.95rem;
+  color: #4a5568;
+}
