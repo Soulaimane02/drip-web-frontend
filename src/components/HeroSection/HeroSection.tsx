@@ -30,7 +30,8 @@ const HeroSection: React.FC = () => {
   };
 
   loadFetchUser();
-  });
+  }, []);
+
   return (
     <section className="hero-section">
       <div className="hero-container">
