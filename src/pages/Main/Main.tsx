@@ -174,6 +174,7 @@ const Main: React.FC = () => {
                 })}
 
                 <HeroSection />
+                
                 <BrandSection />
 
                 <section className="products-section">
