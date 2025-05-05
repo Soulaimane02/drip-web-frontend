@@ -146,31 +146,30 @@ const ArticleByCategorie: React.FC = () =>{
         <div className="home-container">
           <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
-            <main className="main-content">
+          <main className="main-content">
+
+          <div className="category-menu category-menu-spacing">
+            <div className="category-list">
               {parentCategories.map((categorie) => {
-                  const subCats = subCategoriesMap[categorie.id] || [];
-                  const subIds = idHiddenSubCategorie[categorie.id] || [];
+                const subCats = subCategoriesMap[categorie.id] || [];
+                const subIds = idHiddenSubCategorie[categorie.id] || [];
 
-                  const subCategoriesWithIds = subCats.map((name, i) => ({
-                    name,
-                    id: subIds[i],
-                  }));
+                const subCategoriesWithIds = subCats.map((name, i) => ({
+                  name,
+                  id: subIds[i],
+                }));
 
-                  return (
-                    <div
-                      key={categorie.id}
-                      onClick={(e) => handleProtectedClick(e, "categorie")}
-                      style={{ cursor: !user ? "pointer" : "default" }}
-                    >
-                      <CategoryMenu
-                        categorie={categorie}
-                        subCategories={subCategoriesWithIds.map((sc) => sc.name)}
-                        idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
-                        className="category-menu-spacing"
-                      />
-                    </div>
-                  );
-                })}
+                return (
+                  <CategoryMenu
+                    key={categorie.id}
+                    categorie={categorie}
+                    subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                    idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
 
                 <section className="products-section">
