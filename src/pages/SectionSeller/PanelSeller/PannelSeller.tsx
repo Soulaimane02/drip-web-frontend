@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./PannelSeller.css";
 import { User } from "../../../Models/User";
 import { Articles } from "../../../Models/Articles";
-import { MoreHorizontal, Download, DollarSign, Store, Package, Users, RefreshCw, TrendingUp, Star, Heart } from "lucide-react";
+import { MoreHorizontal, Download, DollarSign, Store, Package, Users, RefreshCw, TrendingUp, Star, Heart, Shirt } from "lucide-react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { useNavigate } from "react-router";
 import { fetchArticles } from "../../../services/ArticleService";
@@ -10,6 +10,7 @@ import { fetchUser, fetchUserOrSellerById } from "../../../services/UserService"
 import { toast } from "sonner";
 import { useLocation } from "react-router";
 import { fetchReviewById } from "../../../services/ReviewService";
+import Button from "../../../components/Button/Button";
 
 interface ChartData {
     month: string;
@@ -140,7 +141,7 @@ const PannelSeller: React.FC = () => {
     return (
         <div className="ps_container">
             <div className="ps_nav">
-                <Navbar/>
+            <Navbar user={user}  showSearch={false} />
             </div>
             <header className="ps_header">
                 <div className="ps_welcome">
@@ -148,78 +149,67 @@ const PannelSeller: React.FC = () => {
                     <p>Maximisez vos ventes de produits et la gestion de votre DripStore pour obtenir les meilleurs résultats</p>
                 </div>
                 <div className="ps_actions">
-                    <div className="ps_select_wrapper">
-                        <select 
-                            value={periode} 
-                            onChange={(e) => setPeriode(e.target.value)}
-                            className="ps_period_select"
-                        >
-                            <option value="Ce mois">Ce mois</option>
-                            <option value="Dernier trimestre">Dernier trimestre</option>
-                            <option value="Cette année">Cette année</option>
-                        </select>
-                    </div>
-                    <button className="ps_download_btn">
-                        <Download size={16} />
-                        Télécharger le rapport
-                    </button>
+                    <Button className="add-to-cart-btn" onClick={() => navigate("/add-drip")}>
+                          <Shirt size={18} className="mr-2" />
+                          Ajouter un Drip
+                        </Button>
                 </div>
             </header>
 
             <div className="ps_stats_grid">
-                <div className="ps_stat_card">
-                    <div className="ps_stat_icon ps_profit">
-                        <DollarSign size={20} />
-                    </div>
-                    <div className="ps_stat_content">
-                        <span className="ps_stat_label">Profit Total</span>
-                        <h2 className="ps_stat_value">{revenuTotal.toLocaleString()} €</h2>
-                        <div className="ps_stat_trend ps_trend_down">
-                            <span>↓ 2,9% vs 300,3K l'an dernier</span>
-                        </div>
-                    </div>
+    <div className="ps_stat_card">
+        <div className="ps_stat_icon ps_profit">
+            <DollarSign size={20} />
+        </div>
+        <div className="ps_stat_content">
+            <span className="ps_stat_label">Profit Total</span>
+            <h2 className="ps_stat_value">{revenuTotal.toLocaleString()} €</h2>
+            <div className="ps_stat_trend ps_trend_down">
+                <span>💸 On relève la tête, champion !</span>
+            </div>
+        </div>
+    </div>
+
+        <div className="ps_stat_card">
+            <div className="ps_stat_icon ps_product">
+                <Package size={20} />
+            </div>
+            <div className="ps_stat_content">
+                <span className="ps_stat_label">Produits</span>
+                <h2 className="ps_stat_value">{produitsVendus}</h2>
+                <div className="ps_stat_trend ps_trend_up">
+                    <span>🔥 Continue comme ça, c’est fort !</span>
                 </div>
+            </div>
+        </div>
 
-
-                <div className="ps_stat_card">
-                    <div className="ps_stat_icon ps_product">
-                        <Package size={20} />
-                    </div>
-                    <div className="ps_stat_content">
-                        <span className="ps_stat_label">Produits</span>
-                        <h2 className="ps_stat_value">{produitsVendus}</h2>
-                        <div className="ps_stat_trend ps_trend_up">
-                            <span>↑ 4,1% vs 350 580 l'an dernier</span>
-                        </div>
-                    </div>
+        <div className="ps_stat_card">
+            <div className="ps_stat_icon ps_store">
+                <Star size={20} />
+            </div>
+            <div className="ps_stat_content">
+                <span className="ps_stat_label">Avis</span>
+                <h2 className="ps_stat_value">{nombreAvis}</h2>
+                <div className="ps_stat_trend ps_trend_up">
+                    <span>⭐ Ta communauté est au top !</span>
                 </div>
+            </div>
+        </div>
 
-                <div className="ps_stat_card">
-                    <div className="ps_stat_icon ps_store">
-                        <Star size={20} />
-                    </div>
-                    <div className="ps_stat_content">
-                        <span className="ps_stat_label">Avis</span>
-                        <h2 className="ps_stat_value">{nombreAvis}</h2>
-                        <div className="ps_stat_trend ps_trend_up">
-                            <span>↑ 12,9% vs 10300 l'an dernier</span>
-                        </div>
-                    </div>
+            <div className="ps_stat_card">
+                <div className="ps_stat_icon ps_visitor">
+                    <Heart size={20} />
                 </div>
-
-                <div className="ps_stat_card">
-                    <div className="ps_stat_icon ps_visitor">
-                        <Heart size={20} />
-                    </div>
-                    <div className="ps_stat_content">
-                        <span className="ps_stat_label">Favoris</span>
-                        <h2 className="ps_stat_value">{favoris.toLocaleString()}</h2>
-                        <div className="ps_stat_trend ps_trend_up">
-                            <span>↑ 1,7% vs 3,0M l'an dernier</span>
-                        </div>
+                <div className="ps_stat_content">
+                    <span className="ps_stat_label">Favoris</span>
+                    <h2 className="ps_stat_value">{favoris.toLocaleString()}</h2>
+                    <div className="ps_stat_trend ps_trend_up">
+                        <span>💖 Tes fans sont fidèles super !</span>
                     </div>
                 </div>
             </div>
+        </div>
+
 
             <div className="ps_charts_container">
                 <div className="ps_revenue_chart">
@@ -237,7 +227,6 @@ const PannelSeller: React.FC = () => {
                             <span className="ps_figure_label">Revenus Total</span>
                             <h2 className="ps_figure_value">{revenuTotal.toLocaleString()} €</h2>
                             <div className="ps_figure_trend ps_trend_up">
-                                <span>↑ 4,1% vs 150 583 € l'an dernier</span>
                             </div>
                         </div>
 
