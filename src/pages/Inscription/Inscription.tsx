@@ -63,6 +63,7 @@ const Inscription: React.FC = () => {
         return "internal server error !";    }
   };
 
+
   return (
     <div className="inscription-background">
       <div className="container-central">

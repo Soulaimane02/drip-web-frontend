@@ -46,7 +46,11 @@ const Navbar: React.FC<NavbarProps> = ({ user, research, onSearchChange, showSea
         {user.role === Role.Seller && (
           <>
             <Button text="MesFavoris" variant="secondary" onClick={() => navigate("/favorites")} />
-            <Button text="Panel Vendeur" variant="secondary" onClick={() => navigate("/seller/panel")} />
+            <Button text="Panel Vendeur" variant="secondary" onClick={() =>
+                      navigate(`/seller/panel`, {
+                        state: { userId: user.id }
+                      })
+                    } />
           </>
         )}
   

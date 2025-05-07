@@ -24,15 +24,27 @@ const ArticleByCategorie: React.FC = () =>{
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
     const { under_category_name } = useParams();
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const token = localStorage.getItem('token') || '';
+
+
 
     
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!isLoadingUser && user === null) {
+            toast.info("Session expirée ou token invalide");
+          navigate("/login");
+        }
+      }, [user, navigate]);
+  
+
 
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticlesByCategorie(subCategoryId);
+            const data = await fetchArticlesByCategorie(subCategoryId, token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 
@@ -46,25 +58,30 @@ const ArticleByCategorie: React.FC = () =>{
             }
         };
 
-          const loadFetchUser = async () => {
+        const loadFetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    setUser(null);
-                    return;
-                }
-
-                const fetchUserByToken = await fetchUser(token);
-                if (fetchUserByToken === "No token") {
-                    setUser(null);
-                    return;
-                }
-
-                setUser(fetchUserByToken as User);
-            } catch (error) {
+              const token = localStorage.getItem("token");
+              if (!token) {
                 setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              const fetchUserByToken = await fetchUser(token);
+              if (fetchUserByToken === "No token") {
+                setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              setUser(fetchUserByToken as User);
+            } catch (error) {
+              setUser(null);
+            } finally {
+              setIsLoadingUser(false);
             }
-        };
+          };
+          
 
         loadFetchUser();
         loadArticles();
@@ -121,7 +138,8 @@ const ArticleByCategorie: React.FC = () =>{
           toast.info("Veuillez vous connecter pour accéder à cette fonctionnalité.");
           navigate("/login");
       };
-  
+
+
   
       
 
@@ -130,31 +148,30 @@ const ArticleByCategorie: React.FC = () =>{
         <div className="home-container">
           <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
-            <main className="main-content">
+          <main className="main-content">
+
+          <div className="category-menu category-menu-spacing">
+            <div className="category-list">
               {parentCategories.map((categorie) => {
-                  const subCats = subCategoriesMap[categorie.id] || [];
-                  const subIds = idHiddenSubCategorie[categorie.id] || [];
+                const subCats = subCategoriesMap[categorie.id] || [];
+                const subIds = idHiddenSubCategorie[categorie.id] || [];
 
-                  const subCategoriesWithIds = subCats.map((name, i) => ({
-                    name,
-                    id: subIds[i],
-                  }));
+                const subCategoriesWithIds = subCats.map((name, i) => ({
+                  name,
+                  id: subIds[i],
+                }));
 
-                  return (
-                    <div
-                      key={categorie.id}
-                      onClick={(e) => handleProtectedClick(e, "categorie")}
-                      style={{ cursor: !user ? "pointer" : "default" }}
-                    >
-                      <CategoryMenu
-                        categorie={categorie}
-                        subCategories={subCategoriesWithIds.map((sc) => sc.name)}
-                        idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
-                        className="category-menu-spacing"
-                      />
-                    </div>
-                  );
-                })}
+                return (
+                  <CategoryMenu
+                    key={categorie.id}
+                    categorie={categorie}
+                    subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                    idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
 
                 <section className="products-section">

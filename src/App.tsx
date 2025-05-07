@@ -19,6 +19,8 @@ import Careers from "./pages/Careers/Careers";
 import News from "./pages/News/News";
 import AllSeller from "./pages/AllSeller/AllSeller";
 import SellerDetails from "./pages/SellerDetails/SellerDetails";
+import NotFound from "./pages/NotFound";
+import PannelSeller from "./pages/SectionSeller/PanelSeller/PannelSeller";
 
 function App() {
   return (
@@ -44,6 +46,10 @@ function App() {
           <Route path="/news" element={<News/>} />
           <Route path="/all-seller" element={<AllSeller/>} />
           <Route path="/seller/:firstName/:id_user" element={<SellerDetails/>} />
+          <Route path="/seller/panel/" element={<PannelSeller/>} />
+
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
       </BrowserRouter>
 

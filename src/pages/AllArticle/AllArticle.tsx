@@ -15,9 +15,13 @@ const AllArticle: React.FC = () =>{
     const [user, setUser] = useState<User | null>(null);
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const token = localStorage.getItem('token') || '';
+
+
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticles();
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 
@@ -25,29 +29,43 @@ const AllArticle: React.FC = () =>{
         };
 
         
-          const loadFetchUser = async () => {
+        const loadFetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    setUser(null);
-                    return;
-                }
-
-                const fetchUserByToken = await fetchUser(token);
-                if (fetchUserByToken === "No token") {
-                    setUser(null);
-                    return;
-                }
-
-                setUser(fetchUserByToken as User);
-            } catch (error) {
+              const token = localStorage.getItem("token");
+              if (!token) {
                 setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              const fetchUserByToken = await fetchUser(token);
+              if (fetchUserByToken === "No token") {
+                setUser(null);
+                setIsLoadingUser(false);
+                return;
+              }
+          
+              setUser(fetchUserByToken as User);
+            } catch (error) {
+              setUser(null);
+            } finally {
+              setIsLoadingUser(false);
             }
-        };
+          };
+          
 
         loadFetchUser();
         loadArticles();
     }, []);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!isLoadingUser && user === null) {
+            toast.info("Session expirée ou token invalide");
+          navigate("/login");
+        }
+      }, [user, navigate]);
+  
 
     // Aide GPT
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +100,7 @@ const AllArticle: React.FC = () =>{
                     <div className="section-header">
                         <h2 className="section-title">Pas d’idée ? Explore et trouve ton Drip !</h2>
                         <a href="/all-seller" className="view-more-link">
-                            Recherche des vendeurs
+                            Recherche des Vendeurs
                             <span className="view-more-arrow">→</span>
                         </a>
 

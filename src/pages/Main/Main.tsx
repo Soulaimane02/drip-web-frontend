@@ -22,13 +22,17 @@ const Main: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const token = localStorage.getItem('token') || '';
+
+
 
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticles();
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 
@@ -42,30 +46,42 @@ const Main: React.FC = () => {
             }
         };
 
-          const loadFetchUser = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    setUser(null);
-                    return;
-                }
-
-                const fetchUserByToken = await fetchUser(token);
-                if (fetchUserByToken === "No token") {
-                    setUser(null);
-                    return;
-                }
-
-                setUser(fetchUserByToken as User);
-            } catch (error) {
-                setUser(null);
+        const loadFetchUser = async () => {
+          try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              setUser(null);
+              setIsLoadingUser(false);
+              return;
             }
+        
+            const fetchUserByToken = await fetchUser(token);
+            if (fetchUserByToken === "No token") {
+              setUser(null);
+              setIsLoadingUser(false);
+              return;
+            }
+        
+            setUser(fetchUserByToken as User);
+          } catch (error) {
+            setUser(null);
+          } finally {
+            setIsLoadingUser(false);
+          }
         };
+        
 
         loadFetchUser();
         loadArticles();
         loadCategorieParent();
     }, []);
+
+    useEffect(() => {
+      if (!isLoadingUser && user === null) {
+        toast.info("Session expirée ou token invalide");
+          navigate("/login");
+        }
+      }, [user, navigate]);
 
     // Aide GPT
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,34 +149,34 @@ const Main: React.FC = () => {
         <div className="home-container">
           <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
-            <main className="main-content">
+          <main className="main-content">
+
+          <div className="category-menu category-menu-spacing">
+            <div className="category-list">
               {parentCategories.map((categorie) => {
-                  const subCats = subCategoriesMap[categorie.id] || [];
-                  const subIds = idHiddenSubCategorie[categorie.id] || [];
+                const subCats = subCategoriesMap[categorie.id] || [];
+                const subIds = idHiddenSubCategorie[categorie.id] || [];
 
-                  const subCategoriesWithIds = subCats.map((name, i) => ({
-                    name,
-                    id: subIds[i],
-                  }));
+                const subCategoriesWithIds = subCats.map((name, i) => ({
+                  name,
+                  id: subIds[i],
+                }));
 
-                  return (
-                    <div
-                      key={categorie.id}
-                      onClick={(e) => handleProtectedClick(e, "categorie")}
-                      style={{ cursor: !user ? "pointer" : "default" }}
-                    >
-                      <CategoryMenu
-                        categorie={categorie}
-                        subCategories={subCategoriesWithIds.map((sc) => sc.name)}
-                        idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
-                        className="category-menu-spacing"
-                      />
-                    </div>
-                  );
-                })}
+                return (
+                  <CategoryMenu
+                    key={categorie.id}
+                    categorie={categorie}
+                    subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                    idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
-                <HeroSection />
-                <BrandSection />
+          <HeroSection />
+          <BrandSection />
+
 
                 <section className="products-section">
                     <div className="section-header">
