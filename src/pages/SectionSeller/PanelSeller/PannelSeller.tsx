@@ -30,6 +30,8 @@ const PannelSeller: React.FC = () => {
     const [favoris, setFavoris] = useState(0);
     const [nombreAvis, setNombreAvis] = useState(0);
     const [chartData, setChartData] = useState<ChartData[]>([]);
+    const token = localStorage.getItem('token') || '';
+
 
 
 
@@ -38,7 +40,7 @@ const PannelSeller: React.FC = () => {
     useEffect(() => {
 
         const loadArticles = async () => {
-            const data = await fetchArticles();
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
                 const sellerArticles = data.filter((article) => article.userId === sellerId);

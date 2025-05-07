@@ -30,6 +30,8 @@ const ArticleDetails: React.FC = () => {
   const [showReviewSeller, setShowReviewSeller] = useState(false);
   const [seller, setSeller] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const token = localStorage.getItem('token') || '';
+
 
   
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ const ArticleDetails: React.FC = () => {
   useEffect(() => {
     const fetchArticleClient = async () => {
       try {
-        const data = await fetchArticle(id_article as string);
+        const data = await fetchArticle(token, id_article as string);
         if (data === "Internal server error !") {
           console.error("Erreur serveur !");
           return;

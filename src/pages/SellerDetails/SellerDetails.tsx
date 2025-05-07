@@ -49,7 +49,8 @@ const SellerDetails: React.FC = () =>{
       };
       
         const loadArticles = async () => {
-            const data = await fetchArticles();
+          const token = localStorage.getItem('token') || '';
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
             }

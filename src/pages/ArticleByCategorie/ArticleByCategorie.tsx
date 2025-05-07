@@ -25,6 +25,8 @@ const ArticleByCategorie: React.FC = () =>{
     const [research, setResearch] = useState("");  
     const { under_category_name } = useParams();
     const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const token = localStorage.getItem('token') || '';
+
 
 
     
@@ -42,7 +44,7 @@ const ArticleByCategorie: React.FC = () =>{
 
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticlesByCategorie(subCategoryId);
+            const data = await fetchArticlesByCategorie(subCategoryId, token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 

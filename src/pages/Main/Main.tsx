@@ -23,6 +23,8 @@ const Main: React.FC = () => {
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
     const [isLoadingUser, setIsLoadingUser] = useState(true);
+    const token = localStorage.getItem('token') || '';
+
 
 
 
@@ -30,7 +32,7 @@ const Main: React.FC = () => {
 
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticles();
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 
