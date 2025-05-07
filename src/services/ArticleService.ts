@@ -52,3 +52,21 @@ export const fetchArticle = async (token: string, id_article: string): Promise<A
         return "Internal server error !";
     }
 }
+
+export const addArticle = async (token: string, article: Articles): Promise<Articles | string> => {
+    try {
+        const response = await fetch(`${api}/articles/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "token": token,
+            },
+            body: JSON.stringify(article),
+        });
+
+        const newArticle: Articles = await response.json();
+        return newArticle;
+    } catch (error) {
+        return "Erreur lors de l'ajout de l'article !";
+    }
+}
