@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.2s;
+    grid-template-columns: repeat(5, 1fr); /* 5 colonnes */
+
     height: 100%;
   }
   

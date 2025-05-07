@@ -30,6 +30,8 @@ const ArticleDetails: React.FC = () => {
   const [showReviewSeller, setShowReviewSeller] = useState(false);
   const [seller, setSeller] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const token = localStorage.getItem('token') || '';
+
 
   
   const navigate = useNavigate();
@@ -37,7 +39,7 @@ const ArticleDetails: React.FC = () => {
   useEffect(() => {
     const fetchArticleClient = async () => {
       try {
-        const data = await fetchArticle(id_article as string);
+        const data = await fetchArticle(token, id_article as string);
         if (data === "Internal server error !") {
           console.error("Erreur serveur !");
           return;
@@ -47,6 +49,7 @@ const ArticleDetails: React.FC = () => {
         console.error(err);
       }
     };
+    
 
     const loadCategorieParent = async () => {
       const data = await fetchAllCategories();
@@ -104,17 +107,25 @@ const ArticleDetails: React.FC = () => {
     setSelectedImage(prev => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const parentCategories = categorieParent.filter((cat) => !cat.parent);
-  const subCategoriesMap: { [key: string]: string[] } = {};
+    // Regroupement des sous-catégories par catégorie parente (GPT)
+    const parentCategories = categorieParent.filter((cat) => !cat.parent);
+    const subCategoriesMap: { [key: string]: string[] } = {};
+    const idHiddenSubCategorie: { [key: string]: string[] } = {};
 
-  categorieParent.forEach((cat) => {
-    if (cat.parent) {
-      if (!subCategoriesMap[cat.parent]) {
-        subCategoriesMap[cat.parent] = [];
+
+    categorieParent.forEach((cat) => {
+      if (cat.parent) {
+        if (!subCategoriesMap[cat.parent]) {
+          subCategoriesMap[cat.parent] = [];
+        }
+        if (!idHiddenSubCategorie[cat.parent]) {
+          idHiddenSubCategorie[cat.parent] = [];
+        }
+    
+        subCategoriesMap[cat.parent].push(cat.name);
+        idHiddenSubCategorie[cat.parent].push(cat.id); 
       }
-      subCategoriesMap[cat.parent].push(cat.name);
-    }
-  });
+    });
 
 
 
@@ -123,16 +134,31 @@ const ArticleDetails: React.FC = () => {
       <div className="container-article-detail">
         <Navbar user={user} showSearch={false} />
 
-        <div className="categorie-navigation">
-          {parentCategories.map((categorie) => (
-            <CategoryMenu
-              key={categorie.id}
-              categorie={categorie}
-              subCategories={subCategoriesMap[categorie.id] || []}
-              className="menu-categorie"
-            />
-          ))}
-        </div>
+        
+
+
+          <div className="category-menu category-menu-spacing">
+            <div className="category-list">
+              {parentCategories.map((categorie) => {
+                const subCats = subCategoriesMap[categorie.id] || [];
+                const subIds = idHiddenSubCategorie[categorie.id] || [];
+
+                const subCategoriesWithIds = subCats.map((name, i) => ({
+                  name,
+                  id: subIds[i],
+                }));
+
+                return (
+                  <CategoryMenu
+                    key={categorie.id}
+                    categorie={categorie}
+                    subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                    idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
         <div className="product-detail-wrapper">
           <div className="product-header">

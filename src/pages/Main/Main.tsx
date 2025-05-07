@@ -23,14 +23,13 @@ const Main: React.FC = () => {
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]); 
     const [research, setResearch] = useState("");  
     const [isLoadingUser, setIsLoadingUser] = useState(true);
-
-
+    const token = localStorage.getItem('token') || '';
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const loadArticles = async () => {
-            const data = await fetchArticles();
+            const data = await fetchArticles(token);
             if (typeof data !== "string") {
                 setArticles(data);
                 setFilteredArticles(data); 
@@ -68,7 +67,6 @@ const Main: React.FC = () => {
           }
         };
         
-
         loadFetchUser();
         loadArticles();
         loadCategorieParent();
@@ -81,13 +79,11 @@ const Main: React.FC = () => {
         }
       }, [user, navigate]);
 
-    // Aide GPT
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const searchQuery = e.target.value.toLowerCase();
       setResearch(searchQuery);
     
       if (!searchQuery) {
-        // Si la recherche est vide, afficher tous les articles
         setFilteredArticles(articles);
       } else {
         const filtered = articles.filter((article) =>
@@ -96,21 +92,17 @@ const Main: React.FC = () => {
         );
     
         if (filtered.length === 0) {
-          setFilteredArticles([]); // Vide les articles affichés
+          setFilteredArticles([]); 
           toast.info("Aucun article trouvé.");
         } else {
           setFilteredArticles(filtered);
         }
       }
     };
-    
 
-
-    // Regroupement des sous-catégories par catégorie parente (GPT)
     const parentCategories = categorieParent.filter((cat) => !cat.parent);
     const subCategoriesMap: { [key: string]: string[] } = {};
     const idHiddenSubCategorie: { [key: string]: string[] } = {};
-
 
     categorieParent.forEach((cat) => {
       if (cat.parent) {
@@ -126,11 +118,6 @@ const Main: React.FC = () => {
       }
     });
 
-    
-
- 
-
-    // Gestion des clics sur les éléments "interdits" si pas connecté (GPT)
     const handleProtectedClick = (e: React.MouseEvent, section: string) => {
         if (user) 
           return;
@@ -140,42 +127,37 @@ const Main: React.FC = () => {
         navigate("/login");
     };
 
-
-    
     return (
-      
         <div className="home-container">
           <Navbar user={user} research={research} onSearchChange={handleSearchChange} />
 
-            <main className="main-content">
+          <main className="main-content">
+
+          <div className="category-menu category-menu-spacing">
+            <div className="category-list">
               {parentCategories.map((categorie) => {
-                  const subCats = subCategoriesMap[categorie.id] || [];
-                  const subIds = idHiddenSubCategorie[categorie.id] || [];
+                const subCats = subCategoriesMap[categorie.id] || [];
+                const subIds = idHiddenSubCategorie[categorie.id] || [];
 
-                  const subCategoriesWithIds = subCats.map((name, i) => ({
-                    name,
-                    id: subIds[i],
-                  }));
+                const subCategoriesWithIds = subCats.map((name, i) => ({
+                  name,
+                  id: subIds[i],
+                }));
 
-                  return (
-                    <div
-                      key={categorie.id}
-                      onClick={(e) => handleProtectedClick(e, "categorie")}
-                      style={{ cursor: !user ? "pointer" : "default" }}
-                    >
-                      <CategoryMenu
-                        categorie={categorie}
-                        subCategories={subCategoriesWithIds.map((sc) => sc.name)}
-                        idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
-                        className="category-menu-spacing"
-                      />
-                    </div>
-                  );
-                })}
+                return (
+                  <CategoryMenu
+                    key={categorie.id}
+                    categorie={categorie}
+                    subCategories={subCategoriesWithIds.map((sc) => sc.name)}
+                    idSubCategorie={subCategoriesWithIds.map((sc) => sc.id)}
+                  />
+                );
+              })}
+            </div>
+          </div>
 
-                <HeroSection />
-                
-                <BrandSection />
+          <HeroSection />
+          <BrandSection />
 
                 <section className="products-section">
                     <div className="section-header">
