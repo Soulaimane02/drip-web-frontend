@@ -49,6 +49,7 @@ const ArticleDetails: React.FC = () => {
         console.error(err);
       }
     };
+    
 
     const loadCategorieParent = async () => {
       const data = await fetchAllCategories();
