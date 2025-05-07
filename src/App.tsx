@@ -21,6 +21,7 @@ import AllSeller from "./pages/AllSeller/AllSeller";
 import SellerDetails from "./pages/SellerDetails/SellerDetails";
 import NotFound from "./pages/NotFound";
 import PannelSeller from "./pages/SectionSeller/PanelSeller/PannelSeller";
+import AddArticle from "./pages/SectionSeller/AddArticle/AddArticle";
 
 function App() {
   return (
@@ -47,6 +48,8 @@ function App() {
           <Route path="/all-seller" element={<AllSeller/>} />
           <Route path="/seller/:firstName/:id_user" element={<SellerDetails/>} />
           <Route path="/seller/panel/" element={<PannelSeller/>} />
+          <Route path="/add-drip" element={<AddArticle/>} />
+
 
           <Route path="*" element={<NotFound />} />
 

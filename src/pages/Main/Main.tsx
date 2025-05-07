@@ -181,7 +181,7 @@ const Main: React.FC = () => {
                     </div>
 
                     <div className="products-grid">
-                    {(filteredArticles.length > 0 ? filteredArticles : articles).slice(0, 20).map((article) => (
+                    {(filteredArticles.length > 0 ? filteredArticles : articles).slice(0, 8).map((article) => (
                           user ? (
                             <Link key={article.id} to={`/article/${article.id}`}>
                               <ProductCard product={article} />
