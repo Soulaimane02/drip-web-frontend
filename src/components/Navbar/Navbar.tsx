@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import Button from "../Button/Button";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, MessageCircle } from "lucide-react";
 import { User } from "../../Models/User";
 import { Role } from "../../utils/enums/role";
+import { useMessagePanel } from "../../context/MessagePanelContext";
 
 interface NavbarProps {
   user?: User | null;
@@ -15,6 +16,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ user, research, onSearchChange, showSearch = true }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toggleMessagePanel } = useMessagePanel();
   const navigate = useNavigate();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen); 
@@ -55,6 +57,9 @@ const Navbar: React.FC<NavbarProps> = ({ user, research, onSearchChange, showSea
         )}
   
         <Button text="Se déconnecter" variant="secondary" onClick={handleLogout} />
+        <div className="icon-button" onClick={toggleMessagePanel}>
+          <MessageCircle size={24} className="message-icon" fill="currentColor" />
+        </div>
         <div className="profile-wrapper">
           <img
             src={user?.profilePicture || "https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png"}

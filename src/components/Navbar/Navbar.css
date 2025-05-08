@@ -176,6 +176,24 @@
   cursor: pointer;
 }
 
+.icon-button {
+  margin-left: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.message-icon {
+  color: #efefef;
+  stroke: #002d72;
+  fill: currentColor;
+  transition: fill 0.3s ease, color 0.3s ease;
+}
+
+.message-icon:hover {
+  color: #002d72;
+}
+
 @media (max-width: 768px) {
   .nav-center, .nav-buttons {
     display: none;

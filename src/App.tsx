@@ -1,9 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "sonner";
 import Main from "./pages/Main/Main";
 import Login from "./pages/Login/Login";
 import Inscription from "./pages/Inscription/Inscription";
 import ArticleDetails from "./pages/ArticleDetails/ArticleDetails";
-import { Toaster } from "sonner"; 
 import ArticleByCategorie from "./pages/ArticleByCategorie/ArticleByCategorie";
 import DetailsProfile from "./pages/DetailsProfile/DetailsProfile";
 import AllArticle from "./pages/AllArticle/AllArticle";
@@ -20,33 +21,37 @@ import News from "./pages/News/News";
 import AllSeller from "./pages/AllSeller/AllSeller";
 import SellerDetails from "./pages/SellerDetails/SellerDetails";
 import NotFound from "./pages/NotFound";
+import { MessagePanelProvider } from "./context/MessagePanelContext";
+
+const WithNavbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <MessagePanelProvider>{children}</MessagePanelProvider>;
+};
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<WithNavbar><Main /></WithNavbar>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Inscription />} />
-          <Route path="/article/:id_article" element={<ArticleDetails />} />
-          <Route path="/category/:category_name/:under_category_name" element={<ArticleByCategorie/>} />
-          <Route path="/profile" element={<DetailsProfile/>} />
-          <Route path="/all-drip" element={<AllArticle/>} />
-          <Route path="/faq" element={<Faq/>} />
-          <Route path="/delivery" element={<Delivery/>} />
-          <Route path="/returns" element={<Returns/>} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="/privacy" element={<Privacy/>} />
-          <Route path="/mission" element={<Mission/>} />
-          <Route path="/sustainability" element={<Sustainability/>} />
-          <Route path="/press" element={<Press/>} />
-          <Route path="/careers" element={<Careers/>} />
-          <Route path="/news" element={<News/>} />
-          <Route path="/all-seller" element={<AllSeller/>} />
-          <Route path="/seller/:firstName/:id_user" element={<SellerDetails/>} />
+          <Route path="/article/:id_article" element={<WithNavbar><ArticleDetails /></WithNavbar>} />
+          <Route path="/category/:category_name/:under_category_name" element={<WithNavbar><ArticleByCategorie /></WithNavbar>} />
+          <Route path="/profile" element={<WithNavbar><DetailsProfile /></WithNavbar>} />
+          <Route path="/all-drip" element={<WithNavbar><AllArticle /></WithNavbar>} />
+          <Route path="/faq" element={<WithNavbar><Faq /></WithNavbar>} />
+          <Route path="/delivery" element={<WithNavbar><Delivery /></WithNavbar>} />
+          <Route path="/returns" element={<WithNavbar><Returns /></WithNavbar>} />
+          <Route path="/contact" element={<WithNavbar><Contact /></WithNavbar>} />
+          <Route path="/privacy" element={<WithNavbar><Privacy /></WithNavbar>} />
+          <Route path="/mission" element={<WithNavbar><Mission /></WithNavbar>} />
+          <Route path="/sustainability" element={<WithNavbar><Sustainability /></WithNavbar>} />
+          <Route path="/press" element={<WithNavbar><Press /></WithNavbar>} />
+          <Route path="/careers" element={<WithNavbar><Careers /></WithNavbar>} />
+          <Route path="/news" element={<WithNavbar><News /></WithNavbar>} />
+          <Route path="/all-seller" element={<WithNavbar><AllSeller /></WithNavbar>} />
+          <Route path="/seller/:firstName/:id_user" element={<WithNavbar><SellerDetails /></WithNavbar>} />
           <Route path="*" element={<NotFound />} />
-
         </Routes>
       </BrowserRouter>
 
