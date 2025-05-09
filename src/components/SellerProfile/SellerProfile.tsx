@@ -14,10 +14,11 @@ const SellerProfile: React.FC<SellerProfileProps> = ({ userId, articles }) => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageCarouselVisible, setIsImageCarouselVisible] = useState(false);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const loadSeller = async () => {
-      const data = await fetchUserOrSellerById(userId);
+      const data = await fetchUserOrSellerById(token!, userId);
       if (typeof data !== "string") {
         setSeller(data);
       }

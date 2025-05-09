@@ -22,7 +22,7 @@ export const fetchUser = async (tokenUser: string) :Promise<User | string> =>{
     }
 }
 
-export const uptadeUser = async (id: string, data: any, isMultipart = false) => {
+export const uptadeUser = async (token: string, id: string, data: any, isMultipart = false) => {
     try {
         const token = localStorage.getItem("token");
 
@@ -30,7 +30,8 @@ export const uptadeUser = async (id: string, data: any, isMultipart = false) => 
             method: "PUT",
             headers: {
                 ...(isMultipart ? {} : {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 }),
                 Authorization: `Bearer ${token}`
             },
@@ -48,12 +49,13 @@ export const uptadeUser = async (id: string, data: any, isMultipart = false) => 
 
 
 
-export const deleteUser = async (idUser: string) :Promise<void | string> =>{
+export const deleteUser = async (token: string, idUser: string) :Promise<void | string> =>{
     try {
         const data = await fetch(`${api}/users/${idUser}` ,{
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
               },
         });
 
@@ -68,12 +70,13 @@ export const deleteUser = async (idUser: string) :Promise<void | string> =>{
     }
 }
 
-export const fetchAllSeller = async () :Promise<User[] | string> =>{
+export const fetchAllSeller = async (token: string) :Promise<User[] | string> =>{
     try {
         const data = await fetch(`${api}/users`,{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
               },
 
 
@@ -90,12 +93,13 @@ export const fetchAllSeller = async () :Promise<User[] | string> =>{
     }
 }
 
-export const fetchUserOrSellerById = async (id: string): Promise<User | string> => {
+export const fetchUserOrSellerById = async (token: string, id: string): Promise<User | string> => {
     try {
       const response = await fetch(`${api}/users/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
       });
   

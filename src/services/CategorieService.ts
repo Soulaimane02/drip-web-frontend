@@ -21,12 +21,13 @@ export const fetchAllCategories = async () : Promise<Categories[] | string> =>{
     }
 }
 
-export const fetchByCategorie = async (id_parent : string ) : Promise<Categories[] | string> => {
+export const fetchByCategorie = async (token: string, id_parent : string ) : Promise<Categories[] | string> => {
     try{
         const fetchChildrenCategorie = await fetch(`${api}/categories/children/${id_parent}`,{
             method: "GET",
             headers:{
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
             }
         });
         const fetchChildrenCategorieJson : Categories[] = await fetchChildrenCategorie.json();

@@ -31,8 +31,7 @@ const PannelSeller: React.FC = () => {
     const [favoris, setFavoris] = useState(0);
     const [nombreAvis, setNombreAvis] = useState(0);
     const [chartData, setChartData] = useState<ChartData[]>([]);
-    const token = localStorage.getItem('token') || '';
-
+    const token = localStorage.getItem('token');
 
 
 
@@ -41,7 +40,7 @@ const PannelSeller: React.FC = () => {
     useEffect(() => {
 
         const loadArticles = async () => {
-            const data = await fetchArticles(token);
+            const data = await fetchArticles(token!);
             if (typeof data !== "string") {
                 setArticles(data);
                 const sellerArticles = data.filter((article) => article.userId === sellerId);
@@ -76,7 +75,7 @@ const PannelSeller: React.FC = () => {
 
         const loadSeller = async () => {
             if (!sellerId) return;
-            const sellerData = await fetchUserOrSellerById(sellerId); 
+            const sellerData = await fetchUserOrSellerById(token!, sellerId); 
             if (typeof sellerData !== "string") {
               setSeller(sellerData as User);
             }
@@ -109,7 +108,7 @@ const PannelSeller: React.FC = () => {
                 totalRevenue += article.price * 1; // suppose 1 vente/article ou ajoute soldQuantity
                 totalFavoris += article.likes;
                 totalVendus += 1; // simulate sold count
-                const reviews = await fetchReviewById(article.id);
+                const reviews = await fetchReviewById(token!, article.id);
                 if (typeof reviews !== "string") {
                     totalAvis += reviews.length;
                 }

@@ -17,6 +17,7 @@ interface ReviewProps {
 const ReviewSection: React.FC<ReviewProps> = ({ user, paramsArticleId, article }) => {
     const [userConnected, setUserConnected] = useState<User | undefined>();
     const [reviews, setReviews] = useState<Review[]>([]);
+    const token = localStorage.getItem("token")!;
 
     useEffect(() => {
         const loadToken = async () => {
@@ -32,7 +33,7 @@ const ReviewSection: React.FC<ReviewProps> = ({ user, paramsArticleId, article }
         };
 
         const loadReviews = async () => {
-            const data = await fetchReviewById(paramsArticleId);
+            const data = await fetchReviewById(token, paramsArticleId);
             if (typeof data !== "string") {
                 setReviews(data);
             }

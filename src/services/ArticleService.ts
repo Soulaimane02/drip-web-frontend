@@ -7,7 +7,6 @@ export const fetchArticles = async (token: string): Promise<Articles[] | string>
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "token": token,
             },
         });
 
@@ -25,7 +24,7 @@ export const fetchArticlesByCategorie = async (token: string, id_under_categorie
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "token": token,
+                "Authorization": `Bearer ${token}`,
             },
         });
 
@@ -43,7 +42,7 @@ export const fetchArticle = async (token: string, id_article: string): Promise<A
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "token": token,
+                "Authorization": `Bearer ${token}`,
             },
         });
         const article: Articles = await data.json();
@@ -59,7 +58,7 @@ export const addArticle = async (token: string, article: Articles): Promise<Arti
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "token": token,
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(article),
         });

@@ -30,7 +30,7 @@ const ArticleDetails: React.FC = () => {
   const [showReviewSeller, setShowReviewSeller] = useState(false);
   const [seller, setSeller] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const token = localStorage.getItem('token') || '';
+  const token = localStorage.getItem('token')!;
 
 
   
@@ -79,7 +79,7 @@ const ArticleDetails: React.FC = () => {
     const fetchSeller = async () => {
       if (!article?.userId) return; 
       try {
-        const data = await fetchUserOrSellerById(article.userId);
+        const data = await fetchUserOrSellerById(token!, article.userId);
         if (data === "Internal server error !") {
           console.error("Erreur serveur !");
           return;

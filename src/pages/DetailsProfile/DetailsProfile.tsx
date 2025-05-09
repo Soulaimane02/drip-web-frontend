@@ -17,7 +17,7 @@ const DetailsProfile: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const navigate = useNavigate();
     const [isLoadingUser, setIsLoadingUser] = useState(true);
-
+    const token = localStorage.getItem("token")!;
     
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const DetailsProfile: React.FC = () => {
                 formData.append("profilePicture", selectedFile);
             }
 
-            const updatedUser = await uptadeUser(user.id, formData, true);
+            const updatedUser = await uptadeUser(token, user.id, formData, true);
             if (updatedUser && updatedUser !== "Internal server error") {
                 navigate("/");
             } else {
@@ -72,7 +72,7 @@ const DetailsProfile: React.FC = () => {
 
     const handleDelete = async () => {
         if (user && user.id) {
-            const result = await deleteUser(user.id);
+            const result = await deleteUser(token, user.id);
             if (!result) {
                 navigate("/login");
             }
@@ -119,7 +119,7 @@ const DetailsProfile: React.FC = () => {
                         "⚠️ Es-tu sûr de vouloir supprimer ton profil ? Cette action est irréversible."
                         );
                         if (confirmDelete && user && user.id) {
-                        const result = await deleteUser(user.id);
+                        const result = await deleteUser(token, user.id);
                         if (!result) {
                             navigate("/login");
                         }

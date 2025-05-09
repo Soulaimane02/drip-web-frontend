@@ -20,8 +20,7 @@ const SellerDetails: React.FC = () =>{
     const [seller, setSeller] = useState<User | null>(null);
     const [categorieParent, setCategorieParent] = useState<Categories[]>([]);
     const [isLoadingUser, setIsLoadingUser] = useState(true);
-
-
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
       const loadFetchUser = async () => {
@@ -65,7 +64,7 @@ const SellerDetails: React.FC = () =>{
 
       const loadSeller = async () => {
         if (!id_user) return;
-        const sellerData = await fetchUserOrSellerById(id_user); 
+        const sellerData = await fetchUserOrSellerById(token!, id_user); 
         if (typeof sellerData !== "string") {
           setSeller(sellerData as User);
         }

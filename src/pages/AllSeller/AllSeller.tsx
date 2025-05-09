@@ -31,7 +31,7 @@ const AllSeller: React.FC = () =>{
         };
 
         const loadSeller = async () => {
-            const data = await fetchAllSeller();
+            const data = await fetchAllSeller(token);
             if (typeof data !== "string") {
                 setSeller(data);
                 setFilteredSeller(data); 
