@@ -161,7 +161,7 @@ const Main: React.FC = () => {
 
                 <section className="products-section">
                     <div className="section-header">
-                        <h2 className="section-title">Le Drip du Jour</h2>
+                        <h2 className="section-title">Le Drip du Jour :</h2>
                         {!user &&(
                            <a href="/register" className="view-more-link">
                             Explore plus de Drip
