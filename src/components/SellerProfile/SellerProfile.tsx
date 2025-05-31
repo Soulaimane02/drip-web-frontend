@@ -11,13 +11,14 @@ interface SellerProfileProps {
 
 const SellerProfile: React.FC<SellerProfileProps> = ({ userId, articles }) => {
   const [seller, setSeller] = useState<User | null>(null);
+  const token = localStorage.getItem("token");
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageCarouselVisible, setIsImageCarouselVisible] = useState(false);
 
   useEffect(() => {
     const loadSeller = async () => {
-      const data = await fetchUserOrSellerById(userId);
+      const data = await fetchUserOrSellerById(userId, token!);
       if (typeof data !== "string") {
         setSeller(data);
       }

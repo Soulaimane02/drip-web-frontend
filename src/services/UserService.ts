@@ -90,12 +90,13 @@ export const fetchAllSeller = async () :Promise<User[] | string> =>{
     }
 }
 
-export const fetchUserOrSellerById = async (id: string): Promise<User | string> => {
+export const fetchUserOrSellerById = async (id: string, token: string): Promise<User | string> => {
     try {
       const response = await fetch(`${api}/users/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
       });
   
